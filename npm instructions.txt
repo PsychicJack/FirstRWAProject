@@ -1,0 +1,6 @@
+npm install
+npm install --save-dev webpack webpack-cli webpack-dev-server json-server
+npm install typescript -g
+npm install typescript --save-dec
+npm install ts-loader
+tsc --init // za generisanje fajla tsconfig.json
