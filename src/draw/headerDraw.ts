@@ -1,5 +1,4 @@
 import {
-    createElementWithClass,
     createDivWithClass,
 } from "../fequentlyUsedFunctions";
 

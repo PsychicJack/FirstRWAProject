@@ -1,5 +1,5 @@
 import { headerDraw } from "./draw/headerDraw";
-import { createElementWithClass, createDivWithClass } from "./fequentlyUsedFunctions";
+import { createDivWithClass } from "./fequentlyUsedFunctions";
 import { indexDraw } from "./draw/indexDraw";
 
 console.log("hello");

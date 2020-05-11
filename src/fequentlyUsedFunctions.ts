@@ -1,4 +1,5 @@
-export function createElementWithClass(
+// fully works, its just unneeded
+/*export function createElementWithClass(
     host: HTMLDivElement | HTMLFormElement | HTMLElement,
     className: string = "",
     elementType: string = "div"
@@ -10,7 +11,7 @@ export function createElementWithClass(
     element.className = className;
     if (elementType == "div") return element as HTMLDivElement;
     else return element;
-}
+}*/
 
 export function createDivWithClass(
     host: HTMLElement,
