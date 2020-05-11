@@ -1,21 +1,19 @@
-.header{
-    background-color: #2DCAA4;
+.header {
+    background-color: #2dcaa4;
     display: flex;
-
 }
 
-.logo
-{
+.logo {
     flex-grow: 1;
     font-size: 36px;
     color: white;
     margin: 9px 0 9px 25px;
 }
-.menu{
+.menu {
     display: flex;
 }
 
-.menu-item{
+.menu-item {
     color: white;
     font-size: 18px;
     width: 120px;
@@ -25,7 +23,7 @@
 
 .menu-item:hover {
     cursor: pointer;
-    color:  #2DCAA4;
+    color: #2dcaa4;
     background-color: white;
     transition: 0.2s;
 }

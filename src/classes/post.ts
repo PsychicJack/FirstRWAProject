@@ -20,8 +20,8 @@ export class Post {
         return postCard;
     }
 
-    draw(host: HTMLDivElement): HTMLDivElement{
-        const post : HTMLDivElement =  createDivWithClass(host, "post");
+    draw(host: HTMLDivElement): HTMLDivElement {
+        const post: HTMLDivElement = createDivWithClass(host, "post");
         createDivWithClass(post, "post-title").innerHTML = this.title;
         createDivWithClass(post, "post-page").innerHTML = this.pages[0];
         return post;

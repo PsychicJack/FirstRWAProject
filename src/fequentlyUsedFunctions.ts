@@ -13,17 +13,12 @@
     else return element;
 }*/
 
-export function createDivWithClass(
-    host: HTMLElement,
-    className: string = ""
-): HTMLDivElement {
+export function createDivWithClass(host: HTMLElement, className: string = ""): HTMLDivElement {
     const div: HTMLDivElement = host.appendChild(document.createElement("div"));
     div.className = className;
     return div;
 }
 
 export function notSoRandomRandomColorGenerator(): string {
-    return (
-        "#" + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6)
-    );
+    return "#" + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6);
 }

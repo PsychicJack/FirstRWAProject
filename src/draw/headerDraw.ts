@@ -1,6 +1,4 @@
-import {
-    createDivWithClass,
-} from "../fequentlyUsedFunctions";
+import { createDivWithClass } from "../fequentlyUsedFunctions";
 
 export function headerDraw(host: HTMLDivElement): void {
     const header: HTMLDivElement = createDivWithClass(host, "header");
