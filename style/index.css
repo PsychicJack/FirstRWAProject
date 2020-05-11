@@ -82,6 +82,40 @@
     border-radius: 20px;
     border: 0;
     padding: 0 12px;
+    max-width: 600px;
+}
+
+.post-cards{
+    background-color: #2DCAA4;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.post-card{
+    background-color: white;
+    border-radius: 20px;
+    width: 265px;
+    height: 375px;
+    padding: 15px;
+    margin: 15px
+}
+
+.post-card-title{
+    height: 30px;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.post-card-page{
+    height: 345px;
+    font-size: 16px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 
