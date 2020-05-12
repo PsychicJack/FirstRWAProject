@@ -12,24 +12,34 @@ if (page == "index" || page == "" || page == undefined) {
     main.innerHTML = "";
     headerDraw(main);
     indexDraw(main);
-    document.querySelector("#css-header")?.setAttribute("href", "style/header.css");
-    document.querySelector("#css")?.setAttribute("href", "style/index.css");
+    cssSetHref("style/header.css", "style/index.css");
 } else if (page == "login") {
     main.innerHTML = "";
     logInDraw(main);
-    document.querySelector("#css-header")?.setAttribute("href", "");
-    document.querySelector("#css")?.setAttribute("href", "style/logIn.css");
+    cssSetHref("", "style/logIn.css");
 } else if(page == "signup")
 {
     main.innerHTML = "";
     signUpDraw(main);
-    document.querySelector("#css-header")?.setAttribute("href", "");
-    document.querySelector("#css")?.setAttribute("href", "style/logIn.css");
+    cssSetHref("", "style/logIn.css");
 } else if(page == "makeapost")
 {
     main.innerHTML = "";
     headerDraw(main);
     makeAPostDraw(main);
-    document.querySelector("#css-header")?.setAttribute("href", "style/header.css");
-    document.querySelector("#css")?.setAttribute("href", "style/makeAPost.css");
+    cssSetHref("style/header.css", "style/makeAPost.css");
+}
+else if(page == "read" || page == "readpost")
+{
+    main.innerHTML = "";
+    headerDraw(main);
+
+    cssSetHref("style/header.css", "style/read.css");
+}
+
+
+function cssSetHref(header : string, mainStyle: string) : void{
+    
+    document.querySelector("#css-header")?.setAttribute("href", header);
+    document.querySelector("#css")?.setAttribute("href", mainStyle);
 }
