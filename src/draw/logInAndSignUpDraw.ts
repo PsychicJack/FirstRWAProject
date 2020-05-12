@@ -32,7 +32,7 @@ export function logInDraw(host: HTMLDivElement): HTMLDivElement {
 export function signUpDraw(host: HTMLDivElement): HTMLDivElement {
     return logInAndSignUpDraw(host, [
         {
-            id: "sing-up-pen-name",
+            id: "sign-up-pen-name",
             element: "input",
             type: "text",
             class: "log-in-input",
@@ -40,7 +40,7 @@ export function signUpDraw(host: HTMLDivElement): HTMLDivElement {
             innerHTML: "Log in",
         },
         {
-            id: "sing-up-password",
+            id: "sign-up-password",
             element: "input",
             type: "password",
             class: "log-in-input",
@@ -48,7 +48,7 @@ export function signUpDraw(host: HTMLDivElement): HTMLDivElement {
             innerHTML: "",
         },
         {
-            id: "sing-up-repeat-password",
+            id: "sign-up-repeat-password",
             element: "input",
             type: "password",
             class: "log-in-input",
@@ -56,7 +56,7 @@ export function signUpDraw(host: HTMLDivElement): HTMLDivElement {
             innerHTML: "",
         },
         {
-            id: "sing-up-button",
+            id: "sign-up-button",
             element: "button",
             type: "button",
             class: "log-in-button",
