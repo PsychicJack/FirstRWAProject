@@ -1,5 +1,8 @@
+import { from, Observable } from "rxjs";
+import { URL_USERS } from "../services/urls";
+
 export class User {
-    id: number
+    id: number;
     penName: string;
     password: string;
 
@@ -8,4 +11,17 @@ export class User {
         this.password = password;
         this.id = id;
     }
+
+    logIn(): Observable<Promise<number>> {
+        return from(
+            fetch(`${URL_USERS}?penNane=${this.penName}&password=${this.password}`, { method: "GET" }).then((resault) =>
+                resault.json().then((data) => {
+                    this.id = data.id;
+                    return data.id;
+                })
+            )
+        );
+    }
+
+    
 }
