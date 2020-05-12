@@ -3,6 +3,7 @@ import { createDivWithClass } from "./fequentlyUsedFunctions";
 import { indexDraw } from "./draw/indexDraw";
 import { logInDraw, signUpDraw } from "./draw/logInAndSignUpDraw";
 import { makeAPostDraw } from "./draw/makeAPostDraw";
+import { readDraw } from "./draw/readDraw";
 
 const main = createDivWithClass(document.body, "main");
 //console.log(window.location.search);
@@ -33,7 +34,7 @@ else if(page == "read" || page == "readpost")
 {
     main.innerHTML = "";
     headerDraw(main);
-
+    readDraw(main);
     cssSetHref("style/header.css", "style/read.css");
 }
 
