@@ -15,13 +15,17 @@ export class User {
     logIn(): Promise<any> {
         return new Promise((resolve) => {
             return resolve(
-                fetch(`${URL_USERS}?penName=${this.penName}&password=${this.password}`).then((result) =>
-                    result.json().then((data) => {
+                fetch(`${URL_USERS}?penName=${this.penName}&password=${this.password}`)
+                    .then((result) => result.json())
+                    .then((data) => {
                         const arr = JSON.parse(JSON.stringify(data));
                         if (arr.length != 1) return 0;
-                        else return arr[0].id;
+                        else
+                        {
+                            this.id = arr[0].id;
+                            return arr[0].id;
+                        }
                     })
-                )
             );
         });
     }
