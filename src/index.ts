@@ -5,7 +5,9 @@ import { logInDraw, signUpDraw } from "./draw/logInAndSignUpDraw";
 import { makeAPostDraw } from "./draw/makeAPostDraw";
 import { readDraw } from "./draw/readDraw";
 import { NotFound404Draw } from "./draw/NotFound404Draw";
+import { initLogInEvents } from "./events/login";
 
+var userId : number = 0;
 const main = createDivWithClass(document.body, "main");
 //console.log(window.location.search);
 const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
@@ -19,6 +21,7 @@ if (page == "index" || page == "" || page == undefined) {
     main.innerHTML = "";
     logInDraw(main);
     cssSetHref("", "style/logIn.css");
+    initLogInEvents();
 } else if(page == "signup")
 {
     main.innerHTML = "";

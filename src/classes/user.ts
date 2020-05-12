@@ -12,16 +12,17 @@ export class User {
         this.id = id;
     }
 
-    logIn(): Observable<Promise<number>> {
-        return from(
-            fetch(`${URL_USERS}?penNane=${this.penName}&password=${this.password}`, { method: "GET" }).then((resault) =>
-                resault.json().then((data) => {
-                    this.id = data.id;
-                    return data.id;
-                })
-            )
-        );
+    logIn(): Promise<any> {
+        return new Promise((resolve) => {
+            return resolve(
+                fetch(`${URL_USERS}?penName=${this.penName}&password=${this.password}`).then((result) =>
+                    result.json().then((data) => {
+                        const arr = JSON.parse(JSON.stringify(data));
+                        if (arr.length != 1) return 0;
+                        else return arr[0].id;
+                    })
+                )
+            );
+        });
     }
-
-    
 }
