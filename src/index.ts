@@ -1,7 +1,7 @@
 import { headerDraw } from "./draw/headerDraw";
 import { createDivWithClass } from "./fequentlyUsedFunctions";
 import { indexDraw } from "./draw/indexDraw";
-import { LogInDraw } from "./draw/loginDraw";
+import { logInDraw, signUpDraw } from "./draw/logInAndSignUpDraw";
 
 const main = createDivWithClass(document.body, "main");
 console.log(window.location.search);
@@ -13,12 +13,12 @@ if (page == "index" || page == "" || page == undefined) {
     document.querySelector("#css-header")?.setAttribute("href", "style/header.css");
     document.querySelector("#css")?.setAttribute("href", "style/index.css");
 } else if (page == "login") {
-    LogInDraw(main);
+    logInDraw(main);
     document.querySelector("#css-header")?.setAttribute("href", "");
     document.querySelector("#css")?.setAttribute("href", "style/logIn.css");
 } else if(page == "signup")
 {
-    
+    signUpDraw(main);
     document.querySelector("#css-header")?.setAttribute("href", "");
     document.querySelector("#css")?.setAttribute("href", "style/logIn.css");
 }
