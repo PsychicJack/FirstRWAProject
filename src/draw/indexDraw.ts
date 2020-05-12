@@ -1,16 +1,13 @@
 import { createDivWithClass, notSoRandomRandomColorGenerator } from "../fequentlyUsedFunctions";
 import { Post } from "../classes/post";
 
-
-export function indexDraw(host: HTMLDivElement):void {
+export function indexDraw(host: HTMLDivElement): void {
     presentationDraw(host);
     searchDraw(host);
-    
-    Post.getNextCards(1).then(data =>{
+
+    Post.getNextCards(1).then((data) => {
         postCardsDraw(host, data as Post[]);
-    })
-    
-    
+    });
 }
 
 function presentationDraw(host: HTMLDivElement): HTMLDivElement {
