@@ -4,6 +4,7 @@ import { indexDraw } from "./draw/indexDraw";
 import { logInDraw, signUpDraw } from "./draw/logInAndSignUpDraw";
 import { makeAPostDraw } from "./draw/makeAPostDraw";
 import { readDraw } from "./draw/readDraw";
+import { NotFound404Draw } from "./draw/NotFound404Draw";
 
 const main = createDivWithClass(document.body, "main");
 //console.log(window.location.search);
@@ -23,7 +24,7 @@ if (page == "index" || page == "" || page == undefined) {
     main.innerHTML = "";
     signUpDraw(main);
     cssSetHref("", "style/logIn.css");
-} else if(page == "makeapost")
+} else if(page == "makeapost" || page == "make" || page == "create" || page == "createapost")
 {
     main.innerHTML = "";
     headerDraw(main);
@@ -37,7 +38,12 @@ else if(page == "read" || page == "readpost")
     readDraw(main);
     cssSetHref("style/header.css", "style/read.css");
 }
-
+else{
+    main.innerHTML = "";
+    headerDraw(main);
+    NotFound404Draw(main);
+    cssSetHref("style/header.css", "style/notFound404.css")
+}
 
 function cssSetHref(header : string, mainStyle: string) : void{
     
