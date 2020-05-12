@@ -19,14 +19,27 @@ export class User {
                     .then((result) => result.json())
                     .then((data) => {
                         const arr = JSON.parse(JSON.stringify(data));
-                        if (arr.length != 1) return 0;
-                        else
-                        {
+                        if (arr.length != 1) return -1;
+                        else {
                             this.id = arr[0].id;
                             return arr[0].id;
                         }
                     })
             );
         });
+    }
+
+    signUp(): void {
+        this.logIn()
+            .then((data) => {
+                if (data != -1) return;
+            })
+            .then(() => {
+                fetch(`${URL_USERS}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ penName: this.penName, password: this.password }),
+                });
+            });
     }
 }
