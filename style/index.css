@@ -1,3 +1,7 @@
+.main{
+    background-color: #2dcaa4;
+}
+
 .presentation {
     background-color: #915eff;
     height: 550px;
@@ -89,6 +93,8 @@
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    max-width: 1200px;
+    margin: auto;
 }
 
 .post-card {
