@@ -52,7 +52,7 @@ function searchDraw(host: HTMLDivElement): HTMLDivElement {
     return search;
 }
 
-function postCardsDraw(host: HTMLDivElement, posts: Post[]): HTMLDivElement {
+export function postCardsDraw(host: HTMLDivElement, posts: Post[]): HTMLDivElement {
     const postCards = createDivWithClass(host, "post-cards");
     posts.forEach((post) => {
         post.drawCard(postCards);
