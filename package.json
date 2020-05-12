@@ -14,13 +14,15 @@
         "webpack-cli": "^3.3.11",
         "webpack-dev-server": "^3.11.0"
     },
-    "devDependencies": {},
+    "devDependencies": {
+        "rxjs": "^6.5.5"
+    },
     "scripts": {
         "build": "webpack",
         "watch": "webpack --watch",
         "start": "webpack-dev-server",
         "api": "json-server --watch db.json"
-      },
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/PsychicJack/FirstRWAProject.git"
