@@ -34,7 +34,6 @@ function tagsContainerDraw(host: HTMLDivElement): HTMLDivElement {
     const tags: HTMLDivElement = createDivWithClass(tagsContainer, "tags");
     ["Sci-Fi", "Romance", "Fantasy", "Horror", "Adventure", "Fan Fiction"].forEach((el) => {
         const tag: HTMLDivElement = tagDraw(tags, el);
-        tag.style.backgroundColor = notSoRandomRandomColorGenerator();
     });
     return tagsContainer;
 }
@@ -42,6 +41,7 @@ function tagsContainerDraw(host: HTMLDivElement): HTMLDivElement {
 export function tagDraw(host: HTMLDivElement, tagText: string): HTMLDivElement {
     const tag: HTMLDivElement = createDivWithClass(host, "tag");
     tag.innerHTML = tagText;
+    tag.style.backgroundColor = notSoRandomRandomColorGenerator();
     return tag;
 }
 

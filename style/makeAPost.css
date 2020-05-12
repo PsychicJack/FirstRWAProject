@@ -1,0 +1,67 @@
+.toolbar{
+    border-bottom: solid 1px black;
+    display: flex;
+}
+
+.tool, .publish{
+    width: 23px;
+    height: 23px;
+    margin: 0 3px;
+}
+
+.tool button, .publish button{
+    width: 100%;
+    border: 0;
+    height: 23px;
+    background-color: white;
+}
+
+.tool button:hover{
+    cursor: pointer;
+    background-color: #2dcaa4;
+    color: white;
+    transition: 0.2s;
+}
+
+.publish{
+    width: 60px;
+}
+
+.publish button{
+    background-color: #915eff;
+    color: white;
+}
+
+.publish button:active, .tool button:active{
+    transform: translateY(2px);
+}
+
+.publish button:hover{
+    cursor: pointer;
+}
+
+.editor{
+    /*background-color: tomato;*/
+    height: 600px;
+    width: 100%;
+}
+
+.tag {
+    width: 100px;
+    height: 28px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 28px;
+    border-radius: 14px;
+    margin: 5px 5px;
+}
+
+.add-tags{
+    width: 28px;
+}
+
+.tags{
+    display: flex;
+    border-top: solid 1px black;
+    border-bottom: solid 1px black;
+}
