@@ -1,5 +1,5 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
-import { URL_POSTS } from "../services/urls";
+import { URL_POSTS } from "../services/config";
 
 export class Post {
     id: number
@@ -30,7 +30,7 @@ export class Post {
         return post;
     }
 
-    static getNextCards(setNumber: number, numberOfCards: number = 6): Promise<any> {
+    static getNextCards(setNumber: number, numberOfCards: number = 3): Promise<any> {
         return new Promise((resovle, reject) => {
             return resovle(
                 fetch(`${URL_POSTS}`)

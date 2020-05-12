@@ -1,5 +1,5 @@
 import { from, Observable } from "rxjs";
-import { URL_USERS } from "../services/urls";
+import { URL_USERS } from "../services/config";
 
 export class User {
     id: number;

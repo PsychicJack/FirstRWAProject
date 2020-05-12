@@ -1,5 +1,5 @@
 import { User } from "../classes/user";
-import { URL_PAGE } from "../services/urls";
+import { URL_PAGE } from "../services/config";
 
 export function initSignUpEvents(): void {
     const logInButton: HTMLButtonElement = document.getElementById("sign-up-button") as HTMLButtonElement;
