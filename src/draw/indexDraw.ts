@@ -1,16 +1,16 @@
 import { createDivWithClass, notSoRandomRandomColorGenerator } from "../fequentlyUsedFunctions";
 import { Post } from "../classes/post";
 
-export function indexDraw(host: HTMLDivElement): void {
+
+export function indexDraw(host: HTMLDivElement):void {
     presentationDraw(host);
     searchDraw(host);
-    const p1: Post = new Post("prvi", ["heladadadasdasdasdasd"], "neko", ["Horror"]);
-    const p2: Post = new Post("prvi brerbw easad dasdadasda d asd a as dasd a", ["heladadadasdasdasdasd"], "neko", ["Horror"]);
-    const p3: Post = new Post("prvi", ["Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. At tellus at urna condimentum mattis pellentesque id nibh tortor. Ornare suspendisse sed nisi lacus sed viverra tellus in. Vestibulum lorem sed risus ultricies tristique nulla aliquet. Gravida cum sociis natoque penatibus et magnis dis parturient montes. Id venenatis a condimentum vitae. Malesuada pellentesque elit eget gravida cum sociis natoque. Arcu bibendum at varius vel pharetra vel turpis. Felis imperdiet proin fermentum leo vel orci porta non. Fermentum iaculis eu non diam phasellus vestibulum lorem sed risus. Id faucibus nisl tincidunt eget. At erat pellentesque adipiscing commodo elit at imperdiet. Lectus arcu bibendum at varius vel pharetra vel turpis. Mi bibendum neque egestas congue quisque egestas. Erat nam at lectus urna duis convallis convallis. Urna condimentum mattis pellentesque id nibh tortor id aliquet. Sit amet est placerat in egestas erat imperdiet. Semper eget duis at tellus at urna condimentum mattis."], "neko", ["Horror"]);
-    const p4: Post = new Post("prvi", ["heladadadasdasdasdasd"], "neko", ["Horror"]);
-    const p5: Post = new Post("prvi", ["heladadadasdasdasdasd"], "neko", ["Horror"]);
-
-    postCardsDraw(host, [p1, p2, p3, p4, p5]);
+    
+    Post.getNextCards(1).then(data =>{
+        postCardsDraw(host, data as Post[]);
+    })
+    
+    
 }
 
 function presentationDraw(host: HTMLDivElement): HTMLDivElement {

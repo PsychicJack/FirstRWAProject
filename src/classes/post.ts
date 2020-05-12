@@ -1,12 +1,15 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
+import { URL_POSTS } from "../services/urls";
 
 export class Post {
+    id: number
     title: string;
     pages: string[];
     author: string;
     tags: string[];
 
-    constructor(title: string, pages: string[], author: string, tags: string[] = []) {
+    constructor(id: number, title: string, pages: string[], author: string, tags: string[] = []) {
+        this.id = id;
         this.title = title;
         this.pages = pages;
         this.author = author;
@@ -25,5 +28,21 @@ export class Post {
         createDivWithClass(post, "post-title").innerHTML = this.title;
         createDivWithClass(post, "post-page").innerHTML = this.pages[0];
         return post;
+    }
+
+    static getNextCards(setNumber: number, numberOfCards: number = 6): Promise<any> {
+        return new Promise((resovle, reject) => {
+            return resovle(
+                fetch(`${URL_POSTS}`)
+                    .then((result) => result.json())
+                    .then((data) => {
+                       return (JSON.parse(JSON.stringify(data)) as any[]).filter(
+                            (el, index) =>
+                                index >= (setNumber - 1) * numberOfCards &&
+                                index < (setNumber - 1) * numberOfCards + numberOfCards //poor use of filter, if you can find another way change this
+                        ).map(el => new Post(el.id, el.title, el.pages, "nesto"));
+                    })
+            );
+        });
     }
 }
