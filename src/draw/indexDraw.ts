@@ -11,14 +11,16 @@ export function indexDraw(host: HTMLDivElement): void {
     searchDraw(host);
     const postCards = createDivWithClass(host, "post-cards");
     (window.onscroll = () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight)
-        {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             console.log("end of the window");
-            
-            Post.getNextCards(setNumber++).then(data => postCardLoader.next(data));
+
+            Post.getNextCards(setNumber++).then((data) => postCardLoader.next(data));
         }
     })();
-    postCardLoader.subscribe((data: any) =>{console.log(data); postCardsDraw(postCards, data as Post[])})
+    postCardLoader.subscribe((data: any) => {
+        console.log(data);
+        postCardsDraw(postCards, data as Post[]);
+    });
 }
 
 function presentationDraw(host: HTMLDivElement): HTMLDivElement {
@@ -64,7 +66,6 @@ function searchDraw(host: HTMLDivElement): HTMLDivElement {
 }
 
 export function postCardsDraw(host: HTMLDivElement, posts: Post[]): HTMLDivElement {
-    
     posts.forEach((post) => {
         post.drawCard(host);
     });
