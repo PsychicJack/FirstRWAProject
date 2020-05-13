@@ -41,3 +41,9 @@
     font-size: 16px;
 }
 
+.password-missmatch{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: solid 2px darkred;
+}

@@ -2,12 +2,9 @@ import { Subject } from "rxjs";
 import { Post } from "../classes/post";
 import { postCardsDraw } from "../draw/indexDraw";
 
-
-let setNumber: number = 1;
-const postCardLoader = new Subject();
-
-
-export function postCardLoadEvent(host: HTMLDivElement) : void{
+export function postCardLoadEvent(host: HTMLDivElement): void {
+    let setNumber: number = 1;
+    const postCardLoader = new Subject();
     (window.onscroll = () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             Post.getNextCards(setNumber++).then((data) => postCardLoader.next(data));
