@@ -2,15 +2,10 @@ import { createDivWithClass } from "../fequentlyUsedFunctions";
 import { Post } from "../classes/post";
 
 export function readDraw(host: HTMLDivElement, id: number): void {
-    Post.getPostById(id).then((post:Post) => {
+    Post.getPostById(id).then((post: Post) => {
         titleDraw(host, post.title);
         createDivWithClass(host, "read").innerHTML = post.text;
-        
-    })
-    //titleDraw(host, "hello");
-    
-    //pageSelectorDraw(host);
- 
+    });
 }
 
 function titleDraw(host: HTMLDivElement, title: string): HTMLDivElement {
