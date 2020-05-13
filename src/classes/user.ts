@@ -76,7 +76,7 @@ export class User {
         });
     }
 
-    static getStreamOfPenNamesByBeginigOfPenName(penNameBegining: string): any {
+    static getStreamOfUsersByBeginigOfPenName(penNameBegining: string): any {
         return Observable.create((observer: any) => {
             User.getAllUsersFromDatabase().then((data) => {
                 data.filter((el: any) => el.title.toLowerCase().startsWith(penNameBegining)).forEach((el: any) => {
