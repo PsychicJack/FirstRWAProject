@@ -9,7 +9,7 @@ const postCardLoader = new Subject();
 export function indexDraw(host: HTMLDivElement): void {
     presentationDraw(host);
     searchDraw(host);
-    const postCards = createDivWithClass(host, "post-cards");
+    const postCards : HTMLDivElement = createDivWithClass(host, "post-cards");
     (window.onscroll = () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             Post.getNextCards(setNumber++).then((data) => postCardLoader.next(data));
