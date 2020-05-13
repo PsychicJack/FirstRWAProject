@@ -30,6 +30,7 @@ export class User {
     }
 
     async signUp(): Promise<boolean> {
+        if(this.penName == "" || this.password == "") return false;
         if (await User.isPenNameTaken(this.penName)) return false;
         return new Promise((resolve) => {
             return resolve(
