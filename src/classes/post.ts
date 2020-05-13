@@ -80,7 +80,7 @@ export class Post {
         });
     }
 
-    static getPostTitlesByBeginingOfTitle(beginingOfTitle: string): any {
+    static getPostsByBeginingOfTitle(beginingOfTitle: string): any {
         return Observable.create((observer: any) => {
             Post.getAllPostTitles().then((data) => {
                 JSON.parse(JSON.stringify(data))
