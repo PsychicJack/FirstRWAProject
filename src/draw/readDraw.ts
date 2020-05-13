@@ -1,13 +1,19 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
+import { Post } from "../classes/post";
 
-export function readDraw(host: HTMLDivElement): HTMLDivElement {
-    titleDraw(host, "hello");
-    const read: HTMLDivElement = createDivWithClass(host, "read");
-    pageSelectorDraw(host);
-    return read;
+export function readDraw(host: HTMLDivElement, id: number): void {
+    Post.getPostById(id).then((post:Post) => {
+        titleDraw(host, post.title);
+        createDivWithClass(host, "read").innerHTML = post.text;
+        
+    })
+    //titleDraw(host, "hello");
+    
+    //pageSelectorDraw(host);
+ 
 }
 
-function titleDraw(host:HTMLDivElement, title: string) : HTMLDivElement{
+function titleDraw(host: HTMLDivElement, title: string): HTMLDivElement {
     const titleDiv = createDivWithClass(host, "title");
     titleDiv.innerHTML = title;
     return titleDiv;

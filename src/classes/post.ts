@@ -53,13 +53,13 @@ export class Post {
         });
     }
 
-    static getCardById(id: number): Promise<any> {
+    static getPostById(id: number): Promise<any> {
         return new Promise((res, rej) => {
             return res(
                 fetch(`${URL_POSTS}/${id}`)
                     .then((result) => result.json())
                     .then((data) => {
-                        console.log(data);
+                        return data;
                     })
             );
         });

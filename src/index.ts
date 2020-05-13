@@ -38,7 +38,7 @@ if (page == "index" || page == "" || page == undefined) {
 } else if (page == "read" || page == "readpost") {
     main.innerHTML = "";
     headerDraw(main);
-    readDraw(main);
+    readDraw(main, +(urlParams.get("id") as string));
     cssSetHref("style/header.css", "style/read.css");
 } else {
     main.innerHTML = "";
