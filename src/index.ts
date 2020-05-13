@@ -5,9 +5,9 @@ import { logInDraw, signUpDraw } from "./draw/logInAndSignUpDraw";
 import { makeAPostDraw } from "./draw/makeAPostDraw";
 import { readDraw } from "./draw/readDraw";
 import { NotFound404Draw } from "./draw/NotFound404Draw";
-import { initLogInEvents } from "./events/login";
-import { initSignUpEvents } from "./events/singUp";
-import { postCardLoadEvent } from "./events/postCardsLoad";
+import { initLogInEvents } from "./events/logInEvents";
+import { initSignUpEvents } from "./events/singUpEvents";
+import { postCardLoadEvent } from "./events/postCardsLoadEvents";
 
 var userId: number = 0;
 const main = createDivWithClass(document.body, "main");

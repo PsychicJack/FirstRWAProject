@@ -3,10 +3,10 @@ import { URL_PAGE } from "../services/config";
 
 export function initLogInEvents(): void {
     const logInButton : HTMLButtonElement = document.getElementById("log-in-button") as HTMLButtonElement;
-    logInButton.addEventListener("click", LogInButtonClickEvent);
+    logInButton.addEventListener("click", logInButtonClickEvent);
 }
 
-function LogInButtonClickEvent(): void {
+function logInButtonClickEvent(): void {
         const user: User = new User(
             (document.getElementById("log-in-pen-name") as HTMLInputElement).value,
             (document.getElementById("log-in-password") as HTMLInputElement).value
