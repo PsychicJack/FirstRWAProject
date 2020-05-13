@@ -8,6 +8,7 @@ import { NotFound404Draw } from "./draw/NotFound404Draw";
 import { initLogInEvents } from "./events/logInEvents";
 import { initSignUpEvents } from "./events/singUpEvents";
 import { postCardEventsInit } from "./events/postCardsEvents";
+import { initSearchEvents } from "./events/searchEvents";
 
 var userId: number = 0;
 const main = createDivWithClass(document.body, "main");
@@ -20,6 +21,7 @@ if (page == "index" || page == "" || page == undefined) {
     indexDraw(main);
     cssSetHref("style/header.css", "style/index.css");
     postCardEventsInit(document.querySelector(".post-cards") as HTMLDivElement);
+    initSearchEvents();
 } else if (page == "login") {
     main.innerHTML = "";
     logInDraw(main);

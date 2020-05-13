@@ -4,6 +4,7 @@ import { Tag } from "../classes/tag";
 import { take } from "rxjs/operators";
 import { pipe } from "rxjs/index";
 import { NUMBER_OF_TAGS_ON_INDEX } from "../services/config";
+import { autocompleteEvent } from "../events/searchEvents";
 
 export function indexDraw(host: HTMLDivElement): void {
     presentationDraw(host);
@@ -47,15 +48,20 @@ export function tagDraw(host: HTMLDivElement, tag: Tag): HTMLDivElement {
 
 function searchDraw(host: HTMLDivElement): HTMLDivElement {
     const search: HTMLDivElement = createDivWithClass(host, "search");
-    createDivWithClass(search, "search-instructions").innerHTML = "Search by tags, titles and users";
-    const searchBarDiv : HTMLDivElement = createDivWithClass(search, "search-bar-div");
-    const searchBar: HTMLInputElement = searchBarDiv.appendChild(
-        document.createElement("input")
-    );
+    /*createDivWithClass(search, "search-instructions").innerHTML = "Search by tags, titles and users";*/
+    const searchBarDiv: HTMLDivElement = createDivWithClass(search, "search-bar-div");
+    drawSearchBy(searchBarDiv);
+    const searchBar: HTMLInputElement = searchBarDiv.appendChild(document.createElement("input"));
     searchBar.id = "search-bar";
-    const serachButton = searchBarDiv.appendChild(document.createElement("button"));
+    searchBar.placeholder = "Search by tags, titles and users";
+    const serachButton: HTMLButtonElement = searchBarDiv.appendChild(document.createElement("button"));
     serachButton.innerHTML = "Serach";
     serachButton.id = "search-button";
+    createDivWithClass(search, "autocomplete");
+    /* drawAutocomplete(search, [
+        { name: "tag", value: "nesto" },
+        { name: "author", value: "Marc" },
+    ]);*/
     return search;
 }
 
@@ -64,4 +70,31 @@ export function postCardsDraw(host: HTMLDivElement, posts: Post[]): HTMLDivEleme
         post.drawCard(host);
     });
     return host;
+}
+
+function drawSearchBy(host: HTMLDivElement): HTMLSelectElement {
+    const searchBy: HTMLSelectElement = host.appendChild(document.createElement("select"));
+    searchBy.id = "search-by";
+    ["All", "Title", "Tag", "Author"].forEach((el) => {
+        const option: HTMLOptionElement = searchBy.appendChild(document.createElement("option"));
+        option.innerHTML = el;
+        option.value = el;
+    });
+    return searchBy;
+}
+
+/*function drawAutocomplete(host: HTMLDivElement, items: any[]): HTMLDivElement {
+    //items.forEach((item) => drawAutocompleteItem(autocomplete, item));
+    return autocomplete;
+}*/
+
+export function drawAutocompleteItem(host: HTMLDivElement, item: any): HTMLDivElement {
+    const autocompleteItem: HTMLDivElement = createDivWithClass(host, "autocomplete-item");
+    const hiddenType = autocompleteItem.appendChild(document.createElement("input"));
+    const hiddenId = autocompleteItem.appendChild(document.createElement("input"));
+    hiddenType.type = hiddenId.type = "hidden";
+    hiddenType.value = item.type;
+    hiddenId.value = item.id;
+    autocompleteItem.innerHTML = `${item.type}: ${item.text}`;
+    return autocompleteItem;
 }

@@ -1,5 +1,5 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
-import { URL_POSTS } from "../services/config";
+import { URL_POSTS, NUMBER_OF_CARDS_PER_LOAD } from "../services/config";
 import { postCardClickEvent } from "../events/postCardsEvents";
 import { Observable } from "rxjs";
 
@@ -36,19 +36,22 @@ export class Post {
         return post;
     }
 
-    static getNextCards(setNumber: number, numberOfCards: number = 3): Promise<any> {
+    static getNextCards(setNumber: number, numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD): Promise<any> {
         return new Promise((resovle, reject) => {
             return resovle(
                 fetch(URL_POSTS)
                     .then((result) => result.json())
                     .then((data) => {
-                        return (JSON.parse(JSON.stringify(data)) as any[])
-                            .filter(
+                        return (
+                            (JSON.parse(JSON.stringify(data)) as any[])
+                                /*.filter(
                                 (el, index) =>
                                     index >= (setNumber - 1) * numberOfCards &&
                                     index < (setNumber - 1) * numberOfCards + numberOfCards //poor use of filter, if you can find another way change this
-                            )
-                            .map((el) => new Post(el.id, el.title, el.text, "nesto"));
+                            )*/
+                                .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards)
+                                .map((el) => new Post(el.id, el.title, el.text, "nesto"))
+                        );
                     })
             );
         });
@@ -66,10 +69,10 @@ export class Post {
         });
     }
 
-    private static getAllPosts(): Promise<Post[]> {
+    private static getPostsByCustomUrl(url: string): Promise<Post[]> {
         return new Promise((res, rej) => {
             return res(
-                fetch(`${URL_POSTS}`)
+                fetch(url)
                     .then((result) => result.json())
                     .then((data) => {
                         return JSON.parse(JSON.stringify(data)).map((el: any) => {
@@ -78,6 +81,10 @@ export class Post {
                     })
             );
         });
+    }
+
+    private static getAllPosts(): Promise<Post[]> {
+        return Post.getPostsByCustomUrl(URL_POSTS);
     }
 
     static getPostsByBeginingOfTitle(beginingOfTitle: string): any {
@@ -92,17 +99,17 @@ export class Post {
         });
     }
 
-    static getPostsByTagId(tagId: number): Promise<Post[]>{
-        return new Promise((res, rej) => {
-            return res(
-                fetch(`${URL_POSTS}?tags_like=${tagId}`)
-                    .then((result) => result.json())
-                    .then((data) => {
-                        return JSON.parse(JSON.stringify(data)).map((el: any) => {
-                            return new Post(el.id, el.title, el.text, "nesto");
-                        });
-                    })
-            );
-        });
+    static getPostsByTagId(tagId: number): Promise<Post[]> {
+        return Post.getPostsByCustomUrl(`${URL_POSTS}?tags_like=${tagId}`);
+    }
+
+    static getPostsByAuthorId(authorId: number): Promise<Post[]> {
+        return Post.getPostsByCustomUrl(`${URL_POSTS}?authorId=${authorId}`);
+    }
+
+    static getNextCardsFromArray(setNumber: number, array: Post[], numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD) {
+        return array
+            .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards)
+            .map((el) => new Post(el.id, el.title, el.text, "nesto"));
     }
 }
