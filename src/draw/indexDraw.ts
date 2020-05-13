@@ -48,10 +48,14 @@ export function tagDraw(host: HTMLDivElement, tag: Tag): HTMLDivElement {
 function searchDraw(host: HTMLDivElement): HTMLDivElement {
     const search: HTMLDivElement = createDivWithClass(host, "search");
     createDivWithClass(search, "search-instructions").innerHTML = "Search by tags, titles and users";
-    const searchBar: HTMLInputElement = createDivWithClass(search, "search-bar-div").appendChild(
+    const searchBarDiv : HTMLDivElement = createDivWithClass(search, "search-bar-div");
+    const searchBar: HTMLInputElement = searchBarDiv.appendChild(
         document.createElement("input")
     );
     searchBar.id = "search-bar";
+    const serachButton = searchBarDiv.appendChild(document.createElement("button"));
+    serachButton.innerHTML = "Serach";
+    serachButton.id = "search-button";
     return search;
 }
 
