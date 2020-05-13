@@ -66,7 +66,7 @@ export class Post {
         });
     }
 
-    private static getAllPostTitles(): Promise<Post[]> {
+    private static getAllPosts(): Promise<Post[]> {
         return new Promise((res, rej) => {
             return res(
                 fetch(`${URL_POSTS}`)
@@ -82,13 +82,27 @@ export class Post {
 
     static getPostsByBeginingOfTitle(beginingOfTitle: string): any {
         return Observable.create((observer: any) => {
-            Post.getAllPostTitles().then((data) => {
+            Post.getAllPosts().then((data) => {
                 JSON.parse(JSON.stringify(data))
-                    .filter((el: any) => el.title.toLower().startsWith(beginingOfTitle))
+                    .filter((el: any) => el.title.toLowerCase().startsWith(beginingOfTitle))
                     .forEach((element: any) => {
                         observer.next(element);
                     });
             });
+        });
+    }
+
+    static getPostsByTagId(tagId: number): Promise<Post[]>{
+        return new Promise((res, rej) => {
+            return res(
+                fetch(`${URL_POSTS}?tags_like=${tagId}`)
+                    .then((result) => result.json())
+                    .then((data) => {
+                        return JSON.parse(JSON.stringify(data)).map((el: any) => {
+                            return new Post(el.id, el.title, el.text, "nesto");
+                        });
+                    })
+            );
         });
     }
 }
