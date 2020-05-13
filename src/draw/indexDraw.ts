@@ -12,13 +12,10 @@ export function indexDraw(host: HTMLDivElement): void {
     const postCards = createDivWithClass(host, "post-cards");
     (window.onscroll = () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            console.log("end of the window");
-
             Post.getNextCards(setNumber++).then((data) => postCardLoader.next(data));
         }
     })();
     postCardLoader.subscribe((data: any) => {
-        console.log(data);
         postCardsDraw(postCards, data as Post[]);
     });
 }
