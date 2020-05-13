@@ -11,5 +11,7 @@ function signUpButtonClickEvent(): void {
     const repeatPassword: string = (document.getElementById("sign-up-repeat-password") as HTMLInputElement).value;
     if (password != repeatPassword) throw "passwords do not match"; // odradi preko observable
     const user: User = new User((document.getElementById("sign-up-pen-name") as HTMLInputElement).value, password);
-    user.signUp();
+    user.signUp().then((signUpSuccessful) => {
+        if (typeof signUpSuccessful == "boolean") if (signUpSuccessful) window.location.href = `${URL_PAGE}login`;
+    });
 }

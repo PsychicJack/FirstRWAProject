@@ -29,17 +29,35 @@ export class User {
         });
     }
 
-    signUp(): void {
-        this.logIn()
-            .then((data) => {
-                if (data != -1) return;
-            })
-            .then(() => {
+    async signUp(): Promise<boolean> {
+        if (await User.isPenNameTaken(this.penName)) return false;
+        return new Promise((resolve) => {
+            return resolve(
                 fetch(`${URL_USERS}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ penName: this.penName, password: this.password }),
-                });
-            });
+                })
+                    .then(() => {
+                        return true;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return false;
+                    })
+            );
+        });
+    }
+
+    private static isPenNameTaken(penName: string): Promise<boolean> {
+        return new Promise((resolve) => {
+            return resolve(
+                fetch(`${URL_USERS}?penName=${penName}`)
+                    .then((result) => result.json())
+                    .then((data) => {
+                        return JSON.parse(JSON.stringify(data)).length > 0;
+                    })
+            );
+        });
     }
 }
