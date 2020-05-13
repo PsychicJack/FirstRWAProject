@@ -1,6 +1,7 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
 import { URL_POSTS } from "../services/config";
 import { postCardClickEvent } from "../events/postCardsEvents";
+import { Observable } from "rxjs";
 
 export class Post {
     id: number;
@@ -62,6 +63,32 @@ export class Post {
                         return data;
                     })
             );
+        });
+    }
+
+    private static getAllPostTitles(): Promise<Post[]> {
+        return new Promise((res, rej) => {
+            return res(
+                fetch(`${URL_POSTS}`)
+                    .then((result) => result.json())
+                    .then((data) => {
+                        return JSON.parse(JSON.stringify(data)).map((el: any) => {
+                            return new Post(el.id, el.title, el.text, "nesto");
+                        });
+                    })
+            );
+        });
+    }
+
+    static getPostTitlesByBeginingOfTitle(beginingOfTitle: string): any {
+        return Observable.create((observer: any) => {
+            Post.getAllPostTitles().then((data) => {
+                JSON.parse(JSON.stringify(data))
+                    .filter((el: any) => el.title.toLower().startsWith(beginingOfTitle))
+                    .forEach((element: any) => {
+                        observer.next(element);
+                    });
+            });
         });
     }
 }

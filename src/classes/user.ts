@@ -30,7 +30,7 @@ export class User {
     }
 
     async signUp(): Promise<boolean> {
-        if(this.penName == "" || this.password == "") return false;
+        if (this.penName == "" || this.password == "") return false;
         if (await User.isPenNameTaken(this.penName)) return false;
         return new Promise((resolve) => {
             return resolve(
@@ -59,6 +59,30 @@ export class User {
                         return JSON.parse(JSON.stringify(data)).length > 0;
                     })
             );
+        });
+    }
+
+    private static getAllUsersFromDatabase(): Promise<User[]> {
+        return new Promise((resolve, reject) => {
+            return resolve(
+                fetch(URL_USERS)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        return JSON.parse(JSON.stringify(data)).map((el: any) => {
+                            return new User(el.penName, el.password, el.id);
+                        });
+                    })
+            );
+        });
+    }
+
+    static getStreamOfPenNamesByBeginigOfPenName(penNameBegining: string): any {
+        return Observable.create((observer: any) => {
+            User.getAllUsersFromDatabase().then((data) => {
+                data.filter((el: any) => el.title.toLowerCase().startsWith(penNameBegining)).forEach((el: any) => {
+                    observer.next(el);
+                });
+            });
         });
     }
 }
