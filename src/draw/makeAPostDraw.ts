@@ -47,7 +47,7 @@ function editorDraw(host: HTMLDivElement): HTMLDivElement{
 
 function tagsDraw(host: HTMLDivElement) : HTMLDivElement{
     const tags = createDivWithClass(host, "tags");
-    tagDraw(tags, "Add tags: ").style.backgroundColor = "white";
-    tagDraw(tags, "+").className += " add-tags";
+   // tagDraw(tags, "Add tags: ").style.backgroundColor = "white";
+  //  tagDraw(tags, "+").className += " add-tags";
     return tags;
 }

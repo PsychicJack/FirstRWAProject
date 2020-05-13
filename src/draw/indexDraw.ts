@@ -1,5 +1,9 @@
 import { createDivWithClass, notSoRandomRandomColorGenerator } from "../fequentlyUsedFunctions";
 import { Post } from "../classes/post";
+import { Tag } from "../classes/tag";
+import { take } from "rxjs/operators";
+import { pipe } from "rxjs/index";
+import { NUMBER_OF_TAGS_ON_INDEX } from "../services/config";
 
 export function indexDraw(host: HTMLDivElement): void {
     presentationDraw(host);
@@ -26,17 +30,19 @@ function nameDraw(host: HTMLDivElement): HTMLDivElement {
 function tagsContainerDraw(host: HTMLDivElement): HTMLDivElement {
     const tagsContainer: HTMLDivElement = createDivWithClass(host, "tags-container");
     const tags: HTMLDivElement = createDivWithClass(tagsContainer, "tags");
-    ["Sci-Fi", "Romance", "Fantasy", "Horror", "Adventure", "Fan Fiction"].forEach((el) => {
-        const tag: HTMLDivElement = tagDraw(tags, el);
-    });
+    Tag.getStreamOfTags()
+        .pipe(take(NUMBER_OF_TAGS_ON_INDEX))
+        .subscribe((tag: Tag) => {
+            tagDraw(tags, tag);
+        });
     return tagsContainer;
 }
 
-export function tagDraw(host: HTMLDivElement, tagText: string): HTMLDivElement {
-    const tag: HTMLDivElement = createDivWithClass(host, "tag");
-    tag.innerHTML = tagText;
-    tag.style.backgroundColor = notSoRandomRandomColorGenerator();
-    return tag;
+export function tagDraw(host: HTMLDivElement, tag: Tag): HTMLDivElement {
+    const tagDiv: HTMLDivElement = createDivWithClass(host, "tag");
+    tagDiv.innerHTML = tag.name;
+    tagDiv.style.backgroundColor = tag.color;
+    return tagDiv;
 }
 
 function searchDraw(host: HTMLDivElement): HTMLDivElement {
