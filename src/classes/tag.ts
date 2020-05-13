@@ -1,10 +1,11 @@
-export class Tag{
-    text: string;
+export class Tag {
+    id: number;
+    name: string;
     color: string;
 
-    constructor(text: string, color: string)
-    {
-        this.text = text;
+    constructor(id: number, name: string, color: string) {
+        this.id = id;
+        this.name = name;
         this.color = color;
     }
 }
