@@ -1,23 +1,10 @@
 import { createDivWithClass, notSoRandomRandomColorGenerator } from "../fequentlyUsedFunctions";
 import { Post } from "../classes/post";
-import { Observable, Subject } from "rxjs";
-import { async } from "rxjs/internal/scheduler/async";
-
-let setNumber: number = 1;
-const postCardLoader = new Subject();
 
 export function indexDraw(host: HTMLDivElement): void {
     presentationDraw(host);
     searchDraw(host);
-    const postCards : HTMLDivElement = createDivWithClass(host, "post-cards");
-    (window.onscroll = () => {
-        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            Post.getNextCards(setNumber++).then((data) => postCardLoader.next(data));
-        }
-    })();
-    postCardLoader.subscribe((data: any) => {
-        postCardsDraw(postCards, data as Post[]);
-    });
+    createDivWithClass(host, "post-cards");
 }
 
 function presentationDraw(host: HTMLDivElement): HTMLDivElement {
