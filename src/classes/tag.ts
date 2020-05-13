@@ -1,6 +1,6 @@
 import { URL_TAGS } from "../services/config";
 import { notSoRandomRandomColorGenerator } from "../fequentlyUsedFunctions";
-import { Observable, Observer, observable } from "rxjs";
+import { Observable, Observer, observable, from } from "rxjs";
 
 export class Tag {
     id: number;
@@ -29,7 +29,7 @@ export class Tag {
         });
     }
 
-    private static getAllTagsFromDataBase(): Promise<any> {
+    private static getAllTagsFromDataBase(): Promise<Tag[]> {
         return new Promise((resolve, reject) => {
             return resolve(
                 fetch(`${URL_TAGS}`)
@@ -49,6 +49,17 @@ export class Tag {
                 tags.forEach((tag: Tag) => {
                     observer.next(tag);
                 });
+            });
+        });
+        //return from(Tag.getAllTagsFromDataBase();
+    }
+
+    static getStreamOfTagsThatStartWith(startsWith: string): any {
+        return Observable.create((observer: any) => {
+            Tag.getAllTagsFromDataBase().then((data) => {
+                (data as Tag[])
+                    .filter((el) => el.name.toLowerCase().startsWith(startsWith))
+                    .forEach((tag: Tag) => observer.next(tag));
             });
         });
     }
