@@ -1,9 +1,16 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
 
 export function readDraw(host: HTMLDivElement): HTMLDivElement {
+    titleDraw(host, "hello");
     const read: HTMLDivElement = createDivWithClass(host, "read");
     pageSelectorDraw(host);
     return read;
+}
+
+function titleDraw(host:HTMLDivElement, title: string) : HTMLDivElement{
+    const titleDiv = createDivWithClass(host, "title");
+    titleDiv.innerHTML = title;
+    return titleDiv;
 }
 
 function pageSelectorDraw(host: HTMLDivElement): HTMLDivElement {
