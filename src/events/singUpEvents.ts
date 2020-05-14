@@ -12,8 +12,27 @@ function signUpButtonClickEvent(): void {
     const password: string = (document.getElementById("sign-up-password") as HTMLInputElement).value;
     const repeatPassword: string = (document.getElementById("sign-up-repeat-password") as HTMLInputElement).value;
     if (password != repeatPassword) throw "passwords do not match"; // odradi preko observable
-    const user: User = new User((document.getElementById("sign-up-pen-name") as HTMLInputElement).value, password);
-    user.signUp().then((signUpSuccessful) => {
+    const inputArray = [
+        ...Array.from(document.querySelectorAll("input[type=text]")),
+        ...Array.from(document.querySelectorAll("input[type=password]")),
+    ];
+    User.signUp(
+        inputArray.reduce(
+            (acc: any, curr) => {
+                // console.log(acc);
+                const current: HTMLInputElement = curr as HTMLInputElement;
+                //console.log(current.value);
+                acc[current.getAttribute("name") as string] = current.value;
+                return acc;
+                //console.log(obj);
+            },
+            {
+                penName: "",
+                password: "",
+                repeat: "",
+            }
+        )
+    ).then((signUpSuccessful) => {
         if (typeof signUpSuccessful == "boolean") if (signUpSuccessful) window.location.href = `${URL_PAGE}login`;
     });
 }
@@ -36,7 +55,6 @@ function checkIfPasswordsMatch(): boolean | void {
     });
 }
 
-export function goToSignUp()
-{
+export function goToSignUp() {
     window.location.href = `${URL_PAGE}signup`;
 }

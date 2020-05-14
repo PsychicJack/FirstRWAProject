@@ -14,6 +14,7 @@ export function logInDraw(host: HTMLDivElement): HTMLDivElement {
                 class: "log-in-input",
                 placeholder: "pen name",
                 innerHTML: "Log in",
+                name: "",
             },
             {
                 id: "log-in-password",
@@ -22,6 +23,7 @@ export function logInDraw(host: HTMLDivElement): HTMLDivElement {
                 class: "log-in-input",
                 placeholder: "password",
                 innerHTML: "",
+                name: "",
             },
             {
                 id: "log-in-button",
@@ -30,6 +32,7 @@ export function logInDraw(host: HTMLDivElement): HTMLDivElement {
                 class: "log-in-button",
                 placeholder: "",
                 innerHTML: "Log in",
+                name: "",
             },
         ],
         "Go to sign up",
@@ -48,6 +51,7 @@ export function signUpDraw(host: HTMLDivElement): HTMLDivElement {
                 class: "log-in-input",
                 placeholder: "pen name",
                 innerHTML: "Log in",
+                name: "penName",
             },
             {
                 id: "sign-up-password",
@@ -56,6 +60,7 @@ export function signUpDraw(host: HTMLDivElement): HTMLDivElement {
                 class: "log-in-input",
                 placeholder: "password",
                 innerHTML: "",
+                name: "password",
             },
             {
                 id: "sign-up-repeat-password",
@@ -64,6 +69,7 @@ export function signUpDraw(host: HTMLDivElement): HTMLDivElement {
                 class: "log-in-input",
                 placeholder: "repeat password",
                 innerHTML: "",
+                name: "repeat",
             },
             {
                 id: "sign-up-button",
@@ -72,6 +78,7 @@ export function signUpDraw(host: HTMLDivElement): HTMLDivElement {
                 class: "log-in-button",
                 placeholder: "",
                 innerHTML: "Sign Up",
+                name: "",
             },
         ],
         "Go to login",
@@ -90,6 +97,7 @@ function logInAndSignUpDraw(host: HTMLDivElement, inputs: any[], text: string, o
         input.setAttribute("placeholder", el.placeholder);
         input.innerHTML = el.innerHTML;
         input.id = el.id;
+        input.name = el.name;
     });
     linkToAdifferentPage(host, text, onClick);
     return logIn;

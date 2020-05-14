@@ -50,6 +50,9 @@ export class User {
         });
     }
 
+    static signUp(params: any): Promise<boolean> {
+        return new User(params.penName, params.password, 0).signUp();
+    }
     private static isPenNameTaken(penName: string): Promise<boolean> {
         return new Promise((resolve) => {
             return resolve(
