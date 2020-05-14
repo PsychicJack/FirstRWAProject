@@ -109,7 +109,7 @@ export class User {
                     .then((response) => response.json())
                     .then((data) => {
                         return JSON.parse(JSON.stringify(data))
-                            .filter((el: any) => el.penName.startsWith(beginingOfPenName))
+                            .filter((el: any) => el.penName.toLowerCase().startsWith(beginingOfPenName.toLowerCase()))
                             .map((el: any) => {
                                 return el.id;
                             });

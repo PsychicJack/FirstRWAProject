@@ -70,7 +70,7 @@ export class Post {
     ): Promise<Post[]> {
         const type: string = searchQuery.slice(0, searchQuery.indexOf(":"));
         const search: string = searchQuery.slice(searchQuery.indexOf(":") + 2);
-        console.log("in get Next Cards: " + type + ", " + search);
+
         if (search == "") {
             return new Promise((resovle, reject) => {
                 return resovle(
@@ -85,18 +85,23 @@ export class Post {
             });
         } else {
             if (type == "Title") {
-                console.log("Im in title")
-                return Post.getPostsByBeginingOfTitle(search).then(posts => {
-                    return posts.slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards);
+                return Post.getPostsByBeginingOfTitle(search).then((posts) => {
+                    return posts.slice(
+                        (setNumber - 1) * numberOfCards,
+                        (setNumber - 1) * numberOfCards + numberOfCards
+                    );
                 });
             } else if (type == "Author") {
-                return User.getUserIdsByBeginingOfPenName(search).then((ids) =>
-                    Promise.all(ids.map((id) => Post.getPostsByAuthorId(id))).then((data) => {
+                return User.getUserIdsByBeginingOfPenName(search).then((ids) => {
+                    return Promise.all(ids.map((id) => Post.getPostsByAuthorId(id))).then((data) => {
                         let arr: Post[] = [];
                         data.forEach((el) => (arr = arr.concat(el)));
-                        return arr;
-                    })
-                );
+                        return arr.slice(
+                            (setNumber - 1) * numberOfCards,
+                            (setNumber - 1) * numberOfCards + numberOfCards
+                        );
+                    });
+                });
             } else if (type == "Tag") {
                 return Tag.getTagIdsByBeginigOfTagName(search).then((ids) =>
                     Promise.all(ids.map((id) => Post.getPostsByTagId(id))).then((data) => {
@@ -168,7 +173,9 @@ export class Post {
 
     static getPostsByAuthorId(authorId: number): Promise<Post[]> {
         return Post.getPostsByCustomUrl(`${URL_POSTS}?authorId=${authorId}`).then((el) => {
-            return el.filter((x) => x.tags.includes(authorId));
+            console.log(el);
+            // console.log("ids: " + el.filter((x) => x.tags.includes(authorId)));
+            return el;
         });
     }
 

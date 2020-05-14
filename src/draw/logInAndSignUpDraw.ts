@@ -89,7 +89,6 @@ export function signUpDraw(host: HTMLDivElement): HTMLDivElement {
 function logInAndSignUpDraw(host: HTMLDivElement, inputs: any[], text: string, onClick: () => any): HTMLDivElement {
     const logIn = createDivWithClass(host, "log-in");
     inputs.forEach((el) => {
-        console.log("hello");
         const inputDiv = createDivWithClass(logIn, "input-div");
         const input = inputDiv.appendChild(document.createElement(el.element));
         input.setAttribute("type", el.type);

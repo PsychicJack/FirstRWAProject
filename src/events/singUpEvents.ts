@@ -19,12 +19,9 @@ function signUpButtonClickEvent(): void {
     User.signUp(
         inputArray.reduce(
             (acc: any, curr) => {
-                // console.log(acc);
                 const current: HTMLInputElement = curr as HTMLInputElement;
-                //console.log(current.value);
                 acc[current.getAttribute("name") as string] = current.value;
                 return acc;
-                //console.log(obj);
             },
             {
                 penName: "",
