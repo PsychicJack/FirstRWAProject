@@ -59,6 +59,16 @@
       "penName": "helloWorld",
       "password": "123",
       "id": 14
+    },
+    {
+      "penName": "Stefan",
+      "password": "1234",
+      "id": 15
+    },
+    {
+      "penName": "Marko",
+      "password": "1234",
+      "id": 16
     }
   ],
   "posts": [

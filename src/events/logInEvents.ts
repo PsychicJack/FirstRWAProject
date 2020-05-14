@@ -4,6 +4,15 @@ import { URL_PAGE } from "../services/config";
 export function initLogInEvents(): void {
     const logInButton: HTMLButtonElement = document.getElementById("log-in-button") as HTMLButtonElement;
     logInButton.addEventListener("click", logInButtonClickEvent);
+
+    (document.getElementById("log-in-pen-name") as HTMLInputElement).addEventListener("keydown", onEnter);
+    (document.getElementById("log-in-password") as HTMLInputElement).addEventListener("keydown", onEnter);
+    function onEnter(event: KeyboardEvent) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            logInButton.click();
+        }
+    }
 }
 
 function logInButtonClickEvent(): void {

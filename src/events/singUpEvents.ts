@@ -6,6 +6,14 @@ export function initSignUpEvents(): void {
     const logInButton: HTMLButtonElement = document.getElementById("sign-up-button") as HTMLButtonElement;
     logInButton.addEventListener("click", signUpButtonClickEvent);
     checkIfPasswordsMatch();
+    Array.from(document.querySelectorAll("input[type=password], input[type=text]")).forEach((input) => {
+        input.addEventListener("keydown", (event: any) => {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                logInButton.click();
+            }
+        });
+    });
 }
 
 function signUpButtonClickEvent(): void {
