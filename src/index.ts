@@ -8,43 +8,53 @@ import { NotFound404Draw } from "./draw/NotFound404Draw";
 import { initLogInEvents } from "./events/logInEvents";
 import { initSignUpEvents } from "./events/singUpEvents";
 import { postCardEventsInit } from "./events/postCardsEvents";
-import { initSearchEvents } from "./events/searchEvents";
+import { initSearchEvents, serachButtonClick } from "./events/searchEvents";
 import { initMakeAPostEvents } from "./events/makeAPostEvents";
+import { URL_PAGE } from "./services/config";
 
 var userId: number = 0;
 const main = createDivWithClass(document.body, "main");
 const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
 const page: string | undefined = urlParams.get("page")?.toLowerCase();
+main.innerHTML = "";
 if (page == "index" || page == "" || page == undefined) {
-    main.innerHTML = "";
     headerDraw(main);
     indexDraw(main);
     cssSetHref("style/header.css", "style/index.css");
+    const searchQuery: string | null = urlParams.get("search");
+    const searchBy: string | null = urlParams.get("by");
+    if (searchQuery != null && searchBy != null) {
+        try {
+            (document.getElementById("search-query-input") as HTMLInputElement).value = searchQuery;
+            (document.getElementById("search-bar") as HTMLInputElement).value = searchQuery;
+            (document.getElementById("search-by") as HTMLSelectElement).value = searchBy;
+            serachButtonClick(new Event("searchfromurl"));
+        } catch (err) {
+            console.log(err);
+           // window.location.href = `${URL_PAGE}404`;
+        }
+    }
     postCardEventsInit("a", document.querySelector(".post-cards") as HTMLDivElement);
     initSearchEvents();
+    
 } else if (page == "login") {
-    main.innerHTML = "";
     logInDraw(main);
     cssSetHref("", "style/logIn.css");
     initLogInEvents();
 } else if (page == "signup") {
-    main.innerHTML = "";
     signUpDraw(main);
     cssSetHref("", "style/logIn.css");
     initSignUpEvents();
 } else if (page == "makeapost" || page == "make" || page == "create" || page == "createapost") {
-    main.innerHTML = "";
     headerDraw(main);
     makeAPostDraw(main);
     cssSetHref("style/header.css", "style/makeAPost.css");
     initMakeAPostEvents();
 } else if (page == "read" || page == "readpost") {
-    main.innerHTML = "";
     headerDraw(main);
     readDraw(main, +(urlParams.get("id") as string));
     cssSetHref("style/header.css", "style/read.css");
 } else {
-    main.innerHTML = "";
     headerDraw(main);
     NotFound404Draw(main);
     cssSetHref("style/header.css", "style/notFound404.css");

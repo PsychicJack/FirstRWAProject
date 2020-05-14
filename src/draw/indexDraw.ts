@@ -2,7 +2,7 @@ import { createDivWithClass } from "../fequentlyUsedFunctions";
 import { Post } from "../classes/post";
 import { Tag } from "../classes/tag";
 import { take } from "rxjs/operators";
-import { NUMBER_OF_TAGS_ON_INDEX } from "../services/config";
+import { NUMBER_OF_TAGS_ON_INDEX, URL_PAGE } from "../services/config";
 
 export function indexDraw(host: HTMLDivElement): void {
     presentationDraw(host);
@@ -32,7 +32,9 @@ function tagsContainerDraw(host: HTMLDivElement): HTMLDivElement {
     Tag.getStreamOfTags()
         .pipe(take(NUMBER_OF_TAGS_ON_INDEX))
         .subscribe((tag: Tag) => {
-            tag.draw(tags);
+            tag.draw(tags).onclick = () => {
+                window.location.href = `${URL_PAGE}index&search=${tag.name}&by=Tag`;
+            };
         });
     return tagsContainer;
 }

@@ -80,14 +80,22 @@ function autocompleteItemOnClick(ev: Event): void {
     searchBar.dispatchEvent(new Event("input"));
 }
 
-function serachButtonClick(ev: Event): void {
-    const query: string = `${
-        (document.getElementById("search-by") as HTMLSelectElement).selectedOptions[0].innerHTML
-    }: ${(document.getElementById("search-bar") as HTMLInputElement).value}`;
+export function serachButtonClick(ev: Event): void {
+    const search: string = (document.getElementById("search-bar") as HTMLInputElement).value;
+    const by: string = (document.getElementById("search-by") as HTMLSelectElement).selectedOptions[0].innerHTML;
+    const query: string = `${by}: ${search}`;
+    addParamsToUrl(search, by);
     if (query != "") {
         (document.querySelector(".post-cards") as HTMLDivElement).innerHTML = "";
     }
     (document.getElementById("search-query-input") as HTMLInputElement).value = query;
     window.dispatchEvent(new Event("resetsetnumber"));
     window.dispatchEvent(new Event("scroll"));
+}
+
+function addParamsToUrl(search: string, by: string) {
+    const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
+    urlParams.set("search", search);
+    urlParams.set("by", by);
+    window.history.pushState({ id: 100 }, "Page 2", `?${urlParams.toString()}`);
 }
