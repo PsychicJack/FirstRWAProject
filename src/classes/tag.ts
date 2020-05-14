@@ -36,7 +36,7 @@ export class Tag {
                     .then((response) => response.json())
                     .then((data) => {
                         return JSON.parse(JSON.stringify(data))
-                            .filter((tag: any) => tag.name.startsWith(beginingOfTagName))
+                            .filter((tag: any) => tag.name.toLowerCase().startsWith(beginingOfTagName.toLowerCase()))
                             .map((tag: any) => {
                                 return tag.id;
                             });

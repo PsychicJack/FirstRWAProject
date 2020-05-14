@@ -103,13 +103,16 @@ export class Post {
                     });
                 });
             } else if (type == "Tag") {
-                return Tag.getTagIdsByBeginigOfTagName(search).then((ids) =>
-                    Promise.all(ids.map((id) => Post.getPostsByTagId(id))).then((data) => {
+                return Tag.getTagIdsByBeginigOfTagName(search).then((ids) => {
+                    return Promise.all(ids.map((id) => Post.getPostsByTagId(id))).then((data) => {
                         let arr: Post[] = [];
                         data.forEach((el) => (arr = arr.concat(el)));
-                        return arr;
-                    })
-                );
+                        return arr.slice(
+                            (setNumber - 1) * numberOfCards,
+                            (setNumber - 1) * numberOfCards + numberOfCards
+                        );
+                    });
+                });
             } else {
                 //change to combination of all 3
                 return Post.getPostsByBeginingOfTitle(search);
@@ -136,7 +139,8 @@ export class Post {
                     .then((result) => result.json())
                     .then((data) => {
                         return JSON.parse(JSON.stringify(data)).map((el: any) => {
-                            return new Post(el.id, el.title, el.text, el.authorId);
+                            // console.log(el.tags);
+                            return new Post(el.id, el.title, el.text, el.authorId, el.tags);
                         });
                     })
             );
@@ -167,14 +171,13 @@ export class Post {
 
     static getPostsByTagId(tagId: number): Promise<Post[]> {
         return Post.getPostsByCustomUrl(`${URL_POSTS}?tags_like=${tagId}`).then((el) => {
+            console.log(el);
             return el.filter((x) => x.tags.includes(tagId));
         });
     }
 
     static getPostsByAuthorId(authorId: number): Promise<Post[]> {
         return Post.getPostsByCustomUrl(`${URL_POSTS}?authorId=${authorId}`).then((el) => {
-            console.log(el);
-            // console.log("ids: " + el.filter((x) => x.tags.includes(authorId)));
             return el;
         });
     }
@@ -182,6 +185,6 @@ export class Post {
     static getNextCardsFromArray(setNumber: number, array: Post[], numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD) {
         return array
             .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards)
-            .map((el) => new Post(el.id, el.title, el.text, el.author));
+            .map((el) => new Post(el.id, el.title, el.text, el.author, el.tags));
     }
 }
