@@ -85,39 +85,72 @@ export class Post {
             });
         } else {
             if (type == "Title") {
-                return Post.getPostsByBeginingOfTitle(search).then((posts) => {
-                    return posts.slice(
-                        (setNumber - 1) * numberOfCards,
-                        (setNumber - 1) * numberOfCards + numberOfCards
-                    );
-                });
+                return Post.serachResultsForTitle(setNumber, search, numberOfCards);
             } else if (type == "Author") {
-                return User.getUserIdsByBeginingOfPenName(search).then((ids) => {
-                    return Promise.all(ids.map((id) => Post.getPostsByAuthorId(id))).then((data) => {
-                        let arr: Post[] = [];
-                        data.forEach((el) => (arr = arr.concat(el)));
-                        return arr.slice(
-                            (setNumber - 1) * numberOfCards,
-                            (setNumber - 1) * numberOfCards + numberOfCards
-                        );
-                    });
-                });
+                return Post.serachResultsForAuthor(setNumber, search, numberOfCards);
             } else if (type == "Tag") {
-                return Tag.getTagIdsByBeginigOfTagName(search).then((ids) => {
-                    return Promise.all(ids.map((id) => Post.getPostsByTagId(id))).then((data) => {
-                        let arr: Post[] = [];
-                        data.forEach((el) => (arr = arr.concat(el)));
-                        return arr.slice(
-                            (setNumber - 1) * numberOfCards,
-                            (setNumber - 1) * numberOfCards + numberOfCards
-                        );
-                    });
-                });
+                return Post.serachResultsForTag(setNumber, search, numberOfCards);
             } else {
                 //change to combination of all 3
-                return Post.getPostsByBeginingOfTitle(search);
+                return Promise.all([
+                    Post.serachResultsForTitle(1, search, 1000),
+                    Post.serachResultsForAuthor(1, search, 1000),
+                    Post.serachResultsForTag(1, search, 1000),
+                ]).then((arr) => {
+                    let posts: Post[] = [];
+
+                    arr.forEach((el) => (posts = posts.concat(el)));
+
+                    return posts
+                        .filter(
+                            (value, index, self) =>
+                                self
+                                    .map((el) => {
+                                        return `${el.id}${el.author}${el.tags}${el.text}${el.title}`;
+                                    })
+                                    .indexOf(`${value.id}${value.author}${value.tags}${value.text}${value.title}`) ==
+                                index
+                        )
+                        .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards);
+                });
             }
         }
+    }
+
+    private static serachResultsForAuthor(
+        setNumber: number,
+        search: string = "",
+        numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD
+    ): Promise<Post[]> {
+        return User.getUserIdsByBeginingOfPenName(search).then((ids) => {
+            return Promise.all(ids.map((id) => Post.getPostsByAuthorId(id))).then((data) => {
+                let arr: Post[] = [];
+                data.forEach((el) => (arr = arr.concat(el)));
+                return arr.slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards);
+            });
+        });
+    }
+    private static serachResultsForTitle(
+        setNumber: number,
+        search: string = "",
+        numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD
+    ): Promise<Post[]> {
+        return Post.getPostsByBeginingOfTitle(search).then((posts) => {
+            return posts.slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards);
+        });
+    }
+    private static serachResultsForTag(
+        setNumber: number,
+        search: string = "",
+        numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD
+    ): Promise<Post[]> {
+        return Tag.getTagIdsByBeginigOfTagName(search).then((ids) => {
+            return Promise.all(ids.map((id) => Post.getPostsByTagId(id))).then((data) => {
+                let arr: Post[] = [];
+                data.forEach((el) => (arr = arr.concat(el)));
+                return arr.slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards);
+            });
+        });
     }
 
     static getPostById(id: number): Promise<any> {
