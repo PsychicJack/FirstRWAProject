@@ -1,12 +1,18 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
+import { initHeaderClickEvents } from "../events/linkClickEvents";
 
 export function headerDraw(host: HTMLDivElement): void {
     const header: HTMLDivElement = createDivWithClass(host, "header");
     const logo: HTMLDivElement = createDivWithClass(header, "logo");
-    logo.innerHTML = "WIR";
+    createDivWithClass(logo, "logo-text").innerHTML = "WIR";
     const menu: HTMLDivElement = createDivWithClass(header, "menu");
-    ["Make A Post", "Log in"].forEach((el) => {
+    [
+        { title: "Make A Post", id: "make-a-post" },
+        { title: "Log in", id: "log-in" },
+    ].forEach((el) => {
         const menuItem: HTMLDivElement = createDivWithClass(menu, "menu-item");
-        menuItem.innerHTML = el;
+        menuItem.innerHTML = el.title;
+        menuItem.id = el.id;
     });
+    initHeaderClickEvents();
 }

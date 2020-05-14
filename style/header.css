@@ -9,6 +9,12 @@
     color: white;
     margin: 9px 0 9px 25px;
 }
+.logo-text{
+    display: inline;
+}
+.logo-text:hover{
+    cursor: pointer;
+}
 .menu {
     display: flex;
 }
