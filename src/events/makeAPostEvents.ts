@@ -8,27 +8,23 @@ export function initMakeAPostEvents(): void {
     initUnderLineClick(editor);
 }
 
-function format(command: string, value: string | undefined): void {
-    document.execCommand(command, false, value);
-}
-
 function initBoldClick(editor : HTMLDivElement) {
     (document.getElementById("bold") as HTMLButtonElement).onclick = () => {
-        format("bold", undefined);
+        document.execCommand("bold", false, undefined);
         editor.focus();
     };
 }
 
 function initItalicClick(editor : HTMLDivElement) {
     (document.getElementById("italic") as HTMLButtonElement).onclick = () => {
-        format("italic", undefined);
+        document.execCommand("italic", false, undefined);
         editor.focus();
     };
 }
 
 function initUnderLineClick(editor : HTMLDivElement) {
     (document.getElementById("underline") as HTMLButtonElement).onclick = () => {
-        format("underline", undefined);
+        document.execCommand("underline", false, undefined);
         editor.focus();
     };
 }
