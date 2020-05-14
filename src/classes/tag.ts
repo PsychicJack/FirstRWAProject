@@ -1,5 +1,5 @@
 import { URL_TAGS } from "../services/config";
-import { notSoRandomRandomColorGenerator } from "../fequentlyUsedFunctions";
+import { notSoRandomRandomColorGenerator, createDivWithClass } from "../fequentlyUsedFunctions";
 import { Observable, Observer, observable, from } from "rxjs";
 
 export class Tag {
@@ -41,6 +41,16 @@ export class Tag {
                     })
             );
         });
+    }
+
+    draw(host: HTMLDivElement):HTMLDivElement {
+        const tagDiv: HTMLDivElement = createDivWithClass(host, "tag");
+        tagDiv.innerHTML = this.name;
+        tagDiv.style.backgroundColor = this.color;
+        const idInput = tagDiv.appendChild(document.createElement("input"));
+        idInput.type = "hidden";
+        idInput.value = this.id.toString();
+        return tagDiv;
     }
 
     static getStreamOfTags(): any {

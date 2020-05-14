@@ -1,5 +1,4 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
-import { tagDraw } from "./indexDraw";
 import { Tag } from "../classes/tag";
 
 export function makeAPostDraw(host: HTMLDivElement): HTMLDivElement {
@@ -69,15 +68,11 @@ function tagsDraw(host: HTMLDivElement): HTMLDivElement {
     button.className = "add-button";
     button.innerHTML = "Add";
     button.onclick = () => {
-        console.log(selectTag.innerText);
-        tagDraw(
-            tagsDiv,
-            new Tag(
-                +selectTag.value,
-                selectTag.selectedOptions[0].innerHTML,
-                selectTag.selectedOptions[0].getAttribute("colorholder") as string
-            )
-        );
+        new Tag(
+            +selectTag.value,
+            selectTag.selectedOptions[0].innerHTML,
+            selectTag.selectedOptions[0].getAttribute("colorholder") as string
+        ).draw(tagsDiv);
     };
     return tagsDiv;
 }

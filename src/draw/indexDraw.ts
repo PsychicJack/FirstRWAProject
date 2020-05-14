@@ -34,18 +34,18 @@ function tagsContainerDraw(host: HTMLDivElement): HTMLDivElement {
     Tag.getStreamOfTags()
         .pipe(take(NUMBER_OF_TAGS_ON_INDEX))
         .subscribe((tag: Tag) => {
-            tagDraw(tags, tag);
+            tag.draw(tags);
         });
     return tagsContainer;
 }
 
-export function tagDraw(host: HTMLDivElement, tag: Tag): HTMLDivElement {
+/*export function tagDraw(host: HTMLDivElement, tag: Tag): HTMLDivElement {
     const tagDiv: HTMLDivElement = createDivWithClass(host, "tag");
     tagDiv.innerHTML = tag.name;
     tagDiv.style.backgroundColor = tag.color;
     return tagDiv;
 }
-
+*/
 function searchDraw(host: HTMLDivElement): HTMLDivElement {
     const search: HTMLDivElement = createDivWithClass(host, "search");
     /*createDivWithClass(search, "search-instructions").innerHTML = "Search by tags, titles and users";*/

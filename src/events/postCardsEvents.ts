@@ -1,6 +1,6 @@
 import { Subject } from "rxjs";
 import { Post } from "../classes/post";
-import { postCardsDraw, tagDraw } from "../draw/indexDraw";
+import { postCardsDraw } from "../draw/indexDraw";
 import { URL_PAGE } from "../services/config";
 
 export function postCardEventsInit(searchParams: any, host: HTMLDivElement): void {
