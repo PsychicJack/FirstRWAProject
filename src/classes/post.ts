@@ -1,6 +1,6 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
 import { URL_POSTS, NUMBER_OF_CARDS_PER_LOAD } from "../services/config";
-import { postCardClickEvent } from "../events/postCardsEvents";
+import { postCardClickEvent, postCardEventsInit } from "../events/postCardsEvents";
 import { Observable } from "rxjs";
 import { User } from "./user";
 import { Tag } from "./tag";
@@ -23,6 +23,10 @@ export class Post {
     drawCard(host: HTMLDivElement): HTMLDivElement {
         const postCard: HTMLDivElement = createDivWithClass(host, "post-card");
         createDivWithClass(postCard, "post-card-title").innerHTML = this.title;
+        const author: HTMLDivElement = createDivWithClass(postCard, "post-card-author");
+        User.getUserById(this.author).then((user) => {
+            author.innerHTML = `Written by: ${user.penName}`;
+        });
         createDivWithClass(postCard, "post-card-page").innerHTML = this.text;
         const input: HTMLInputElement = postCard.appendChild(document.createElement("input"));
         input.type = "hidden";
