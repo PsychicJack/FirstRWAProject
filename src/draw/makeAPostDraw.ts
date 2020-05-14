@@ -5,7 +5,12 @@ import { addTagClick, publishClick } from "../events/makeAPostEvents";
 export function makeAPostDraw(host: HTMLDivElement): HTMLDivElement {
     const makeAPost: HTMLDivElement = createDivWithClass(host, "make-a-post");
     (toolBarDraw(makeAPost).querySelector(".publish") as HTMLButtonElement).onclick = publishClick;
-    titleEditorDraw(makeAPost);
+    titleEditorDraw(makeAPost).addEventListener("keydown", (event) => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            editor.focus();
+        }
+    });
     const editor: HTMLDivElement = editorDraw(makeAPost);
     (window.onresize = () => {
         editor.style.height = `${document.documentElement.clientHeight - 173}px`;
@@ -61,6 +66,12 @@ function editorDraw(host: HTMLDivElement): HTMLDivElement {
 function tagsDraw(host: HTMLDivElement): HTMLDivElement {
     const tagsDiv: HTMLDivElement = createDivWithClass(host, "tags-div");
     const selectTag: HTMLSelectElement = tagsDiv.appendChild(document.createElement("select"));
+    selectTag.addEventListener("keydown", (event) => {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            button.click();
+        }
+    });
     selectTag.className = "select-tag";
     Tag.getStreamOfTags().subscribe((tag: Tag) => {
         const option = selectTag.appendChild(document.createElement("option"));
