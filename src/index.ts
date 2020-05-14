@@ -9,6 +9,7 @@ import { initLogInEvents } from "./events/logInEvents";
 import { initSignUpEvents } from "./events/singUpEvents";
 import { postCardEventsInit } from "./events/postCardsEvents";
 import { initSearchEvents } from "./events/searchEvents";
+import { initMakeAPostEvents } from "./events/makeAPostEvents";
 
 var userId: number = 0;
 const main = createDivWithClass(document.body, "main");
@@ -20,7 +21,7 @@ if (page == "index" || page == "" || page == undefined) {
     headerDraw(main);
     indexDraw(main);
     cssSetHref("style/header.css", "style/index.css");
-    postCardEventsInit( "a", document.querySelector(".post-cards") as HTMLDivElement);
+    postCardEventsInit("a", document.querySelector(".post-cards") as HTMLDivElement);
     initSearchEvents();
 } else if (page == "login") {
     main.innerHTML = "";
@@ -37,6 +38,7 @@ if (page == "index" || page == "" || page == undefined) {
     headerDraw(main);
     makeAPostDraw(main);
     cssSetHref("style/header.css", "style/makeAPost.css");
+    initMakeAPostEvents();
 } else if (page == "read" || page == "readpost") {
     main.innerHTML = "";
     headerDraw(main);
