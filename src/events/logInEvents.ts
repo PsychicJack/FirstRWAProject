@@ -20,11 +20,16 @@ function logInButtonClickEvent(): void {
         (document.getElementById("log-in-pen-name") as HTMLInputElement).value,
         (document.getElementById("log-in-password") as HTMLInputElement).value
     );
+    const message: HTMLDivElement = document.querySelector(".message") as HTMLDivElement;
     user.logIn().then((result) => {
-        if (result > 0) {
-            localStorage.setItem("userId", result);
+        message.innerText = "";
+        if (typeof result == "number" && result > 0) {
+            localStorage.setItem("userId", result.toString());
             window.location.replace(`${URL_PAGE}index`);
+        } else if (typeof result == "number" && result <= 0) {
+            message.innerHTML = "Wrong pen name or password!";
         }
+        else message.innerHTML = result;
     });
 }
 

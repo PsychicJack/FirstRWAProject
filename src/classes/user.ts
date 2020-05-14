@@ -25,13 +25,16 @@ export class User {
                             return arr[0].id;
                         }
                     })
+                    .catch((err) => {
+                        return err;
+                    })
             );
         });
     }
 
-    async signUp(): Promise<boolean> {
-        if (this.penName == "" || this.password == "") return false;
-        if (await User.isPenNameTaken(this.penName)) return false;
+    async signUp(): Promise<string> {
+        if (this.penName == "" || this.password == "") return "Please fill all the fileds";
+        if (await User.isPenNameTaken(this.penName)) return "Pen name taken";
         return new Promise((resolve) => {
             return resolve(
                 fetch(`${URL_USERS}`, {
@@ -40,17 +43,16 @@ export class User {
                     body: JSON.stringify({ penName: this.penName, password: this.password }),
                 })
                     .then(() => {
-                        return true;
+                        return "success";
                     })
                     .catch((err) => {
-                        console.log(err);
-                        return false;
+                        return err;
                     })
             );
         });
     }
 
-    static signUp(params: any): Promise<boolean> {
+    static signUp(params: any): Promise<string> {
         return new User(params.penName, params.password, 0).signUp();
     }
     private static isPenNameTaken(penName: string): Promise<boolean> {

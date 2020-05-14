@@ -19,7 +19,11 @@ export function initSignUpEvents(): void {
 function signUpButtonClickEvent(): void {
     const password: string = (document.getElementById("sign-up-password") as HTMLInputElement).value;
     const repeatPassword: string = (document.getElementById("sign-up-repeat-password") as HTMLInputElement).value;
-    if (password != repeatPassword) throw "passwords do not match"; // odradi preko observable
+    const message: HTMLDivElement = document.querySelector(".message") as HTMLDivElement;
+    if (password != repeatPassword) {
+        message.innerText = "Passwords do not match";
+        return;
+    }
     const inputArray = [
         ...Array.from(document.querySelectorAll("input[type=text]")),
         ...Array.from(document.querySelectorAll("input[type=password]")),
@@ -38,7 +42,8 @@ function signUpButtonClickEvent(): void {
             }
         )
     ).then((signUpSuccessful) => {
-        if (typeof signUpSuccessful == "boolean") if (signUpSuccessful) window.location.href = `${URL_PAGE}login`;
+        if (signUpSuccessful == "success") window.location.href = `${URL_PAGE}login`;
+        else message.innerHTML = signUpSuccessful;
     });
 }
 

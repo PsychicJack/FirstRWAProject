@@ -98,6 +98,7 @@ function logInAndSignUpDraw(host: HTMLDivElement, inputs: any[], text: string, o
         input.name = el.name;
     });
     linkToAdifferentPage(host, text, onClick);
+    createDivWithClass(host, "message");
     return logIn;
 }
 
@@ -106,3 +107,4 @@ function linkToAdifferentPage(host: HTMLDivElement, text: string, onClick: () =>
     goToText.innerHTML = text;
     goToText.onclick = onClick;
 }
+

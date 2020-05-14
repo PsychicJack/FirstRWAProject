@@ -63,3 +63,8 @@
 .go-to-text:hover{
     cursor: pointer;
 }
+
+.message{
+    height: 30px;
+    color: tomato;
+}
