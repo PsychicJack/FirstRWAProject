@@ -7,10 +7,10 @@ export class Post {
     id: number;
     title: string;
     text: string;
-    author: string;
+    author: number;
     tags: string[];
 
-    constructor(id: number, title: string, text: string, author: string, tags: string[] = []) {
+    constructor(id: number, title: string, text: string, author: number, tags: string[] = []) {
         this.id = id;
         this.title = title;
         this.text = text;
@@ -50,7 +50,7 @@ export class Post {
                                     index < (setNumber - 1) * numberOfCards + numberOfCards //poor use of filter, if you can find another way change this
                             )*/
                                 .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards)
-                                .map((el) => new Post(el.id, el.title, el.text, "nesto"))
+                                .map((el) => new Post(el.id, el.title, el.text, el.authorId))
                         );
                     })
             );
@@ -76,7 +76,7 @@ export class Post {
                     .then((result) => result.json())
                     .then((data) => {
                         return JSON.parse(JSON.stringify(data)).map((el: any) => {
-                            return new Post(el.id, el.title, el.text, "nesto");
+                            return new Post(el.id, el.title, el.text, el.authorId);
                         });
                     })
             );
@@ -103,8 +103,6 @@ export class Post {
         return Post.getPostsByCustomUrl(`${URL_POSTS}?tags_like=${tagId}`);
     }
 
- 
-
     static getPostsByAuthorId(authorId: number): Promise<Post[]> {
         return Post.getPostsByCustomUrl(`${URL_POSTS}?authorId=${authorId}`);
     }
@@ -112,6 +110,6 @@ export class Post {
     static getNextCardsFromArray(setNumber: number, array: Post[], numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD) {
         return array
             .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards)
-            .map((el) => new Post(el.id, el.title, el.text, "nesto"));
+            .map((el) => new Post(el.id, el.title, el.text, el.author));
     }
 }
