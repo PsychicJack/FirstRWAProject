@@ -20,3 +20,6 @@ function logInButtonClickEvent(): void {
         });
 }
 
+export function goToLogin():void{
+    window.location.href = `${URL_PAGE}login`;
+}

@@ -35,3 +35,8 @@ function checkIfPasswordsMatch(): boolean | void {
         }
     });
 }
+
+export function goToSignUp()
+{
+    window.location.href = `${URL_PAGE}signup`;
+}

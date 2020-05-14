@@ -1,6 +1,7 @@
 .main{
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 }
 .log-in {
     margin: 15% 0 0 0;
@@ -46,4 +47,19 @@
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     border: solid 2px darkred;
+}
+
+.go-to{
+    width: 100%;
+    text-align: center;
+    line-height: 50px;
+    color: #2dcaa4;
+}
+
+.go-to-text{
+    display: inline;
+}
+
+.go-to-text:hover{
+    cursor: pointer;
 }
