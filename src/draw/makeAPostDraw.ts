@@ -6,7 +6,10 @@ export function makeAPostDraw(host: HTMLDivElement): HTMLDivElement {
     const makeAPost: HTMLDivElement = createDivWithClass(host, "make-a-post");
     (toolBarDraw(makeAPost).querySelector(".publish") as HTMLButtonElement).onclick = publishClick;
     titleEditorDraw(makeAPost);
-    editorDraw(makeAPost);
+    const editor: HTMLDivElement = editorDraw(makeAPost);
+    (window.onresize = () => {
+        editor.style.height = `${document.documentElement.clientHeight - 173}px`;
+    })();
     tagsDraw(makeAPost);
     return makeAPost;
 }

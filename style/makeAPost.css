@@ -48,7 +48,7 @@
 
 .editor {
     /*background-color: tomato;*/
-    height: 600px;
+    min-height: 400px;
     width: cal(95% - 10px);
     padding: 5px;
     overflow: auto;
