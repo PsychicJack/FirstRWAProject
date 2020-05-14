@@ -91,30 +91,36 @@ export class Post {
             } else if (type == "Tag") {
                 return Post.serachResultsForTag(setNumber, search, numberOfCards);
             } else {
-                //change to combination of all 3
-                return Promise.all([
-                    Post.serachResultsForTitle(1, search, 1000),
-                    Post.serachResultsForAuthor(1, search, 1000),
-                    Post.serachResultsForTag(1, search, 1000),
-                ]).then((arr) => {
-                    let posts: Post[] = [];
-
-                    arr.forEach((el) => (posts = posts.concat(el)));
-
-                    return posts
-                        .filter(
-                            (value, index, self) =>
-                                self
-                                    .map((el) => {
-                                        return `${el.id}${el.author}${el.tags}${el.text}${el.title}`;
-                                    })
-                                    .indexOf(`${value.id}${value.author}${value.tags}${value.text}${value.title}`) ==
-                                index
-                        )
-                        .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards);
-                });
+                return Post.serachResultsForAll(setNumber, search, numberOfCards);
             }
         }
+    }
+
+    private static serachResultsForAll(
+        setNumber: number,
+        search: string = "",
+        numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD
+    ): Promise<Post[]> {
+        return Promise.all([
+            Post.serachResultsForTitle(1, search, 1000),
+            Post.serachResultsForAuthor(1, search, 1000),
+            Post.serachResultsForTag(1, search, 1000),
+        ]).then((arr) => {
+            let posts: Post[] = [];
+
+            arr.forEach((el) => (posts = posts.concat(el)));
+
+            return posts
+                .filter(
+                    (value, index, self) =>
+                        self
+                            .map((el) => {
+                                return `${el.id}${el.author}${el.tags}${el.text}${el.title}`;
+                            })
+                            .indexOf(`${value.id}${value.author}${value.tags}${value.text}${value.title}`) == index
+                )
+                .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards);
+        });
     }
 
     private static serachResultsForAuthor(
