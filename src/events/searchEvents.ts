@@ -15,8 +15,10 @@ export function initSearchEvents() {
         (document.getElementById("search-by") as HTMLSelectElement).dispatchEvent(new Event("change"));
         autocomplete.innerHTML = "";
         subscription.unsubscribe();
-        subscription = sub.subscribe((item) => drawAutocompleteItem(autocomplete, item));
-        console.log(sub.observers.length);
+        subscription = sub.subscribe((item) => {
+            const autocompleteItem: HTMLDivElement = drawAutocompleteItem(autocomplete, item);
+            autocompleteItem.onclick = autocompleteItemOnClick;
+        });
     };
 }
 
@@ -26,14 +28,14 @@ export function autocompleteEvent() {
     return zip(searchBar$, filter$).pipe(
         map(([searchBar, filter]) => {
             return {
-                searchQuery: (searchBar.target as HTMLInputElement).value,
+                searchQuery: (searchBar.target as HTMLInputElement).value.toLocaleLowerCase(),
                 filter: (filter.target as HTMLSelectElement).value,
             };
         }),
         switchMap((ev) => {
             if (ev.searchQuery != "") {
-                if (ev.filter == "Tag") users(ev.searchQuery);
-                else if (ev.filter == "Author") users(ev.searchQuery);
+                if (ev.filter == "Tag") return tags(ev.searchQuery);
+                else if (ev.filter == "Author") return users(ev.searchQuery);
                 else if (ev.filter == "Title") return posts(ev.searchQuery);
                 else return merge(posts(ev.searchQuery), tags(ev.searchQuery), users(ev.searchQuery));
             } else return Observable.create(); //to stop the error: Observable expected
@@ -63,4 +65,10 @@ function users(searchQuery: string): any {
             return { type: "user", id: (user as User).id, text: (user as User).penName };
         })
     );
+}
+
+function autocompleteItemOnClick(ev: Event): void {
+    const searchBar = document.getElementById("search-bar") as HTMLInputElement;
+    searchBar.value = ((ev.target as HTMLDivElement).querySelector("span") as HTMLSpanElement).innerHTML;
+    searchBar.dispatchEvent(new Event("input"));
 }

@@ -103,6 +103,8 @@ export class Post {
         return Post.getPostsByCustomUrl(`${URL_POSTS}?tags_like=${tagId}`);
     }
 
+ 
+
     static getPostsByAuthorId(authorId: number): Promise<Post[]> {
         return Post.getPostsByCustomUrl(`${URL_POSTS}?authorId=${authorId}`);
     }

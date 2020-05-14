@@ -3,16 +3,19 @@ import { Post } from "../classes/post";
 import { postCardsDraw, tagDraw } from "../draw/indexDraw";
 import { URL_PAGE } from "../services/config";
 
-export function postCardEventsInit(host: HTMLDivElement): void {
-    postCardLoadEvent(host);
+export function postCardEventsInit(searchParams: any, host: HTMLDivElement): void {
+    postCardLoadEvent(searchParams, host);
 }
 
-export function postCardLoadEvent(host: HTMLDivElement): void {
+export function postCardLoadEvent(searchParams: any, host: HTMLDivElement): void {
     let setNumber: number = 1;
     const postCardLoader = new Subject();
     (window.onscroll = () => {
+        
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            Post.getNextCards(setNumber++).then((data) => postCardLoader.next(data));
+            //if(searchParams.searchQuery == "")
+                Post.getNextCards(setNumber++).then((data) => postCardLoader.next(data));
+            //else Post.getNextCardsFromArray(setNumber++, (searchParams.)).then((data) => postCardLoader.next(data));
         }
     })();
     postCardLoader.subscribe((data: any) => {

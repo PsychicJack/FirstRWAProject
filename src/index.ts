@@ -20,7 +20,7 @@ if (page == "index" || page == "" || page == undefined) {
     headerDraw(main);
     indexDraw(main);
     cssSetHref("style/header.css", "style/index.css");
-    postCardEventsInit(document.querySelector(".post-cards") as HTMLDivElement);
+    postCardEventsInit( "a", document.querySelector(".post-cards") as HTMLDivElement);
     initSearchEvents();
 } else if (page == "login") {
     main.innerHTML = "";

@@ -95,6 +95,6 @@ export function drawAutocompleteItem(host: HTMLDivElement, item: any): HTMLDivEl
     hiddenType.type = hiddenId.type = "hidden";
     hiddenType.value = item.type;
     hiddenId.value = item.id;
-    autocompleteItem.innerHTML = `${item.type}: ${item.text}`;
+    autocompleteItem.innerHTML = `${item.type}: <span>${item.text}</span>`;
     return autocompleteItem;
 }
