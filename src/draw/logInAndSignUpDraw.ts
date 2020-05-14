@@ -1,5 +1,4 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
-import { sample } from "rxjs/operators";
 import { goToLogin } from "../events/logInEvents";
 import { goToSignUp } from "../events/singUpEvents";
 

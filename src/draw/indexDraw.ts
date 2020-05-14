@@ -1,10 +1,8 @@
-import { createDivWithClass, notSoRandomRandomColorGenerator } from "../fequentlyUsedFunctions";
+import { createDivWithClass } from "../fequentlyUsedFunctions";
 import { Post } from "../classes/post";
 import { Tag } from "../classes/tag";
 import { take } from "rxjs/operators";
-import { pipe } from "rxjs/index";
 import { NUMBER_OF_TAGS_ON_INDEX } from "../services/config";
-import { autocompleteEvent } from "../events/searchEvents";
 
 export function indexDraw(host: HTMLDivElement): void {
     presentationDraw(host);

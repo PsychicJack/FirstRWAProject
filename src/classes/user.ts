@@ -1,6 +1,5 @@
-import { from, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { URL_USERS } from "../services/config";
-import { retry } from "rxjs/operators";
 
 export class User {
     id: number;

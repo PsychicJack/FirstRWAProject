@@ -1,5 +1,5 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
-import { URL_POSTS, NUMBER_OF_CARDS_PER_LOAD, URL_PAGE } from "../services/config";
+import { URL_POSTS, NUMBER_OF_CARDS_PER_LOAD } from "../services/config";
 import { postCardClickEvent } from "../events/postCardsEvents";
 import { Observable } from "rxjs";
 import { User } from "./user";
@@ -185,7 +185,6 @@ export class Post {
                     .then((result) => result.json())
                     .then((data) => {
                         return JSON.parse(JSON.stringify(data)).map((el: any) => {
-                            // console.log(el.tags);
                             return new Post(el.id, el.title, el.text, el.authorId, el.tags);
                         });
                     })

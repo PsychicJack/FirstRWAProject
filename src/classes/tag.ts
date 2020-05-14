@@ -1,6 +1,6 @@
 import { URL_TAGS } from "../services/config";
 import { notSoRandomRandomColorGenerator, createDivWithClass } from "../fequentlyUsedFunctions";
-import { Observable, Observer, observable, from } from "rxjs";
+import { Observable } from "rxjs";
 
 export class Tag {
     id: number;

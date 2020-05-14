@@ -16,7 +16,6 @@ export function postCardLoadEvent(searchParams: any, host: HTMLDivElement): void
         searchQuery = (document.getElementById("search-query-input") as HTMLInputElement).value;
     });
     (window.onscroll = () => {
-        //console.log(setNumber);
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             Post.getNextCards(setNumber++, searchQuery).then((data) => postCardLoader.next(data));
         }

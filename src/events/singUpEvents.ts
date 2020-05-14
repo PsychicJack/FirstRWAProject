@@ -1,6 +1,6 @@
 import { User } from "../classes/user";
 import { URL_PAGE } from "../services/config";
-import { fromEvent, zip, merge } from "rxjs";
+import { fromEvent, merge } from "rxjs";
 
 export function initSignUpEvents(): void {
     const logInButton: HTMLButtonElement = document.getElementById("sign-up-button") as HTMLButtonElement;

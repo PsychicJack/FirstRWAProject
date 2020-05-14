@@ -1,5 +1,5 @@
 import { headerDraw } from "./draw/headerDraw";
-import { createDivWithClass, notSoRandomRandomColorGenerator } from "./fequentlyUsedFunctions";
+import { createDivWithClass } from "./fequentlyUsedFunctions";
 import { indexDraw } from "./draw/indexDraw";
 import { logInDraw, signUpDraw } from "./draw/logInAndSignUpDraw";
 import { makeAPostDraw } from "./draw/makeAPostDraw";
@@ -10,11 +10,9 @@ import { initSignUpEvents } from "./events/singUpEvents";
 import { postCardEventsInit } from "./events/postCardsEvents";
 import { initSearchEvents } from "./events/searchEvents";
 import { initMakeAPostEvents } from "./events/makeAPostEvents";
-import { Tag } from "./classes/tag";
 
 var userId: number = 0;
 const main = createDivWithClass(document.body, "main");
-//console.log(window.location.search);
 const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
 const page: string | undefined = urlParams.get("page")?.toLowerCase();
 if (page == "index" || page == "" || page == undefined) {
