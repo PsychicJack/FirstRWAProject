@@ -39,13 +39,6 @@ function tagsContainerDraw(host: HTMLDivElement): HTMLDivElement {
     return tagsContainer;
 }
 
-/*export function tagDraw(host: HTMLDivElement, tag: Tag): HTMLDivElement {
-    const tagDiv: HTMLDivElement = createDivWithClass(host, "tag");
-    tagDiv.innerHTML = tag.name;
-    tagDiv.style.backgroundColor = tag.color;
-    return tagDiv;
-}
-*/
 function searchDraw(host: HTMLDivElement): HTMLDivElement {
     const search: HTMLDivElement = createDivWithClass(host, "search");
     /*createDivWithClass(search, "search-instructions").innerHTML = "Search by tags, titles and users";*/
@@ -58,10 +51,9 @@ function searchDraw(host: HTMLDivElement): HTMLDivElement {
     serachButton.innerHTML = "Serach";
     serachButton.id = "search-button";
     createDivWithClass(search, "autocomplete");
-    /* drawAutocomplete(search, [
-        { name: "tag", value: "nesto" },
-        { name: "author", value: "Marc" },
-    ]);*/
+    const searchQueryInput: HTMLInputElement = search.appendChild(document.createElement("input"));
+    searchQueryInput.id = "search-query-input";
+    searchQueryInput.type = "hidden";
     return search;
 }
 

@@ -29,6 +29,22 @@ export class Tag {
         });
     }
 
+    static getTagIdsByBeginigOfTagName(beginingOfTagName: string): Promise<number[]> {
+        return new Promise((resolve, reject) => {
+            return resolve(
+                fetch(`${URL_TAGS}?name_like=${beginingOfTagName}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        return JSON.parse(JSON.stringify(data))
+                            .filter((tag: any) => tag.name.startsWith(beginingOfTagName))
+                            .map((tag: any) => {
+                                return tag.id;
+                            });
+                    })
+            );
+        });
+    }
+
     private static getAllTagsFromDataBase(): Promise<Tag[]> {
         return new Promise((resolve, reject) => {
             return resolve(
@@ -43,7 +59,7 @@ export class Tag {
         });
     }
 
-    draw(host: HTMLDivElement):HTMLDivElement {
+    draw(host: HTMLDivElement): HTMLDivElement {
         const tagDiv: HTMLDivElement = createDivWithClass(host, "tag");
         tagDiv.innerHTML = this.name;
         tagDiv.style.backgroundColor = this.color;

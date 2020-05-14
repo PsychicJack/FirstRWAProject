@@ -1,7 +1,9 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
-import { URL_POSTS, NUMBER_OF_CARDS_PER_LOAD } from "../services/config";
+import { URL_POSTS, NUMBER_OF_CARDS_PER_LOAD, URL_PAGE } from "../services/config";
 import { postCardClickEvent } from "../events/postCardsEvents";
 import { Observable } from "rxjs";
+import { User } from "./user";
+import { Tag } from "./tag";
 
 export class Post {
     id: number;
@@ -61,25 +63,53 @@ export class Post {
         });
     }
 
-    static getNextCards(setNumber: number, numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD): Promise<any> {
-        return new Promise((resovle, reject) => {
-            return resovle(
-                fetch(URL_POSTS)
-                    .then((result) => result.json())
-                    .then((data) => {
-                        return (
-                            (JSON.parse(JSON.stringify(data)) as any[])
-                                /*.filter(
-                                (el, index) =>
-                                    index >= (setNumber - 1) * numberOfCards &&
-                                    index < (setNumber - 1) * numberOfCards + numberOfCards //poor use of filter, if you can find another way change this
-                            )*/
+    static getNextCards(
+        setNumber: number,
+        searchQuery: string = "",
+        numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD
+    ): Promise<Post[]> {
+        const type: string = searchQuery.slice(0, searchQuery.indexOf(":"));
+        const search: string = searchQuery.slice(searchQuery.indexOf(":") + 2);
+        console.log("in get Next Cards: " + type + ", " + search);
+        if (search == "") {
+            return new Promise((resovle, reject) => {
+                return resovle(
+                    fetch(URL_POSTS)
+                        .then((result) => result.json())
+                        .then((data) => {
+                            return (JSON.parse(JSON.stringify(data)) as any[])
                                 .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards)
-                                .map((el) => new Post(el.id, el.title, el.text, el.authorId))
-                        );
+                                .map((el) => new Post(el.id, el.title, el.text, el.authorId));
+                        })
+                );
+            });
+        } else {
+            if (type == "Title") {
+                console.log("Im in title")
+                return Post.getPostsByBeginingOfTitle(search).then(posts => {
+                    return posts.slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards);
+                });
+            } else if (type == "Author") {
+                return User.getUserIdsByBeginingOfPenName(search).then((ids) =>
+                    Promise.all(ids.map((id) => Post.getPostsByAuthorId(id))).then((data) => {
+                        let arr: Post[] = [];
+                        data.forEach((el) => (arr = arr.concat(el)));
+                        return arr;
                     })
-            );
-        });
+                );
+            } else if (type == "Tag") {
+                return Tag.getTagIdsByBeginigOfTagName(search).then((ids) =>
+                    Promise.all(ids.map((id) => Post.getPostsByTagId(id))).then((data) => {
+                        let arr: Post[] = [];
+                        data.forEach((el) => (arr = arr.concat(el)));
+                        return arr;
+                    })
+                );
+            } else {
+                //change to combination of all 3
+                return Post.getPostsByBeginingOfTitle(search);
+            }
+        }
     }
 
     static getPostById(id: number): Promise<any> {
@@ -108,11 +138,17 @@ export class Post {
         });
     }
 
+    private static getPostsByBeginingOfTitle(beginingOfTitle: string): Promise<Post[]> {
+        return Post.getPostsByCustomUrl(`${URL_POSTS}?title_like=${beginingOfTitle}`).then((posts) => {
+            return posts.filter((post) => post.title.toLowerCase().startsWith(beginingOfTitle.toLowerCase()));
+        });
+    }
+
     private static getAllPosts(): Promise<Post[]> {
         return Post.getPostsByCustomUrl(URL_POSTS);
     }
 
-    static getPostsByBeginingOfTitle(beginingOfTitle: string): any {
+    static getStreamOfPostsByBeginingOfTitle(beginingOfTitle: string): any {
         return Observable.create((observer: any) => {
             Post.getAllPosts().then((data) => {
                 JSON.parse(JSON.stringify(data))
@@ -125,11 +161,15 @@ export class Post {
     }
 
     static getPostsByTagId(tagId: number): Promise<Post[]> {
-        return Post.getPostsByCustomUrl(`${URL_POSTS}?tags_like=${tagId}`);
+        return Post.getPostsByCustomUrl(`${URL_POSTS}?tags_like=${tagId}`).then((el) => {
+            return el.filter((x) => x.tags.includes(tagId));
+        });
     }
 
     static getPostsByAuthorId(authorId: number): Promise<Post[]> {
-        return Post.getPostsByCustomUrl(`${URL_POSTS}?authorId=${authorId}`);
+        return Post.getPostsByCustomUrl(`${URL_POSTS}?authorId=${authorId}`).then((el) => {
+            return el.filter((x) => x.tags.includes(authorId));
+        });
     }
 
     static getNextCardsFromArray(setNumber: number, array: Post[], numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD) {

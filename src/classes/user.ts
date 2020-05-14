@@ -1,5 +1,6 @@
 import { from, Observable } from "rxjs";
 import { URL_USERS } from "../services/config";
+import { retry } from "rxjs/operators";
 
 export class User {
     id: number;
@@ -86,6 +87,34 @@ export class User {
                     observer.next(el);
                 });
             });
+        });
+    }
+
+    static getUserById(id: number): Promise<User> {
+        return new Promise((resolve, reject) => {
+            return resolve(
+                fetch(`${URL_USERS}/${id}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        return new User(data.penName, data.password, data.id);
+                    })
+            );
+        });
+    }
+
+    static getUserIdsByBeginingOfPenName(beginingOfPenName: string): Promise<number[]> {
+        return new Promise((resolve, reject) => {
+            return resolve(
+                fetch(`${URL_USERS}?penName_like=${beginingOfPenName}`)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        return JSON.parse(JSON.stringify(data))
+                            .filter((el: any) => el.penName.startsWith(beginingOfPenName))
+                            .map((el: any) => {
+                                return el.id;
+                            });
+                    })
+            );
         });
     }
 }

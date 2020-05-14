@@ -9,13 +9,16 @@ export function postCardEventsInit(searchParams: any, host: HTMLDivElement): voi
 
 export function postCardLoadEvent(searchParams: any, host: HTMLDivElement): void {
     let setNumber: number = 1;
+    let searchQuery: string = "";
     const postCardLoader = new Subject();
+    window.addEventListener("resetsetnumber", () => {
+        setNumber = 1;
+        searchQuery = (document.getElementById("search-query-input") as HTMLInputElement).value;
+    });
     (window.onscroll = () => {
-        
+        console.log(setNumber);
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-            //if(searchParams.searchQuery == "")
-                Post.getNextCards(setNumber++).then((data) => postCardLoader.next(data));
-            //else Post.getNextCardsFromArray(setNumber++, (searchParams.)).then((data) => postCardLoader.next(data));
+            Post.getNextCards(setNumber++, searchQuery).then((data) => postCardLoader.next(data));
         }
     })();
     postCardLoader.subscribe((data: any) => {

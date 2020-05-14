@@ -20,6 +20,7 @@ export function initSearchEvents() {
             autocompleteItem.onclick = autocompleteItemOnClick;
         });
     };
+    (document.getElementById("search-button") as HTMLButtonElement).onclick = serachButtonClick;
 }
 
 export function autocompleteEvent() {
@@ -44,7 +45,7 @@ export function autocompleteEvent() {
 }
 
 function posts(searchQuery: string): any {
-    return Post.getPostsByBeginingOfTitle(searchQuery).pipe(
+    return Post.getStreamOfPostsByBeginingOfTitle(searchQuery).pipe(
         map((post) => {
             return { type: "post", id: (post as Post).id, text: (post as Post).title };
         })
@@ -71,4 +72,16 @@ function autocompleteItemOnClick(ev: Event): void {
     const searchBar = document.getElementById("search-bar") as HTMLInputElement;
     searchBar.value = ((ev.target as HTMLDivElement).querySelector("span") as HTMLSpanElement).innerHTML;
     searchBar.dispatchEvent(new Event("input"));
+}
+
+function serachButtonClick(ev: Event): void {
+    const query: string = `${
+        (document.getElementById("search-by") as HTMLSelectElement).selectedOptions[0].innerHTML
+    }: ${(document.getElementById("search-bar") as HTMLInputElement).value}`;
+    if (query != "") {
+        (document.querySelector(".post-cards") as HTMLDivElement).innerHTML = "";
+    }
+    (document.getElementById("search-query-input") as HTMLInputElement).value = query;
+    window.dispatchEvent(new Event("resetsetnumber"));
+    window.dispatchEvent(new Event("scroll"));
 }
