@@ -8,7 +8,7 @@ export function headerDraw(host: HTMLDivElement): void {
     const menu: HTMLDivElement = createDivWithClass(header, "menu");
     [
         { title: "Make A Post", id: "make-a-post" },
-        { title: "Log in", id: "log-in" },
+        { title: localStorage.getItem("userId") == null ? "Log in" : "Log out", id: "log-in" },
     ].forEach((el) => {
         const menuItem: HTMLDivElement = createDivWithClass(menu, "menu-item");
         menuItem.innerHTML = el.title;
