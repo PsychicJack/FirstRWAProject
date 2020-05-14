@@ -10,9 +10,7 @@ import { initSignUpEvents } from "./events/singUpEvents";
 import { postCardEventsInit } from "./events/postCardsEvents";
 import { initSearchEvents, serachButtonClick } from "./events/searchEvents";
 import { initMakeAPostEvents } from "./events/makeAPostEvents";
-import { URL_PAGE } from "./services/config";
 
-var userId: number = 0;
 const main = createDivWithClass(document.body, "main");
 const urlParams: URLSearchParams = new URLSearchParams(window.location.search);
 const page: string | undefined = urlParams.get("page")?.toLowerCase();
@@ -31,12 +29,10 @@ if (page == "index" || page == "" || page == undefined) {
             serachButtonClick(new Event("searchfromurl"));
         } catch (err) {
             console.log(err);
-           // window.location.href = `${URL_PAGE}404`;
         }
     }
     postCardEventsInit("a", document.querySelector(".post-cards") as HTMLDivElement);
     initSearchEvents();
-    
 } else if (page == "login") {
     logInDraw(main);
     cssSetHref("", "style/logIn.css");

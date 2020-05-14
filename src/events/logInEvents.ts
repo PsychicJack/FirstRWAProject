@@ -28,8 +28,7 @@ function logInButtonClickEvent(): void {
             window.location.replace(`${URL_PAGE}index`);
         } else if (typeof result == "number" && result <= 0) {
             message.innerHTML = "Wrong pen name or password!";
-        }
-        else message.innerHTML = result;
+        } else message.innerHTML = result;
     });
 }
 

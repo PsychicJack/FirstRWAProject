@@ -31,8 +31,8 @@ export function initSearchEvents() {
         if (event.keyCode == 13) {
             event.preventDefault();
             serachButtonClick(event);
-          }
-    })
+        }
+    });
 }
 
 export function autocompleteEvent() {

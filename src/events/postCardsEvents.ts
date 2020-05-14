@@ -9,7 +9,7 @@ export function postCardEventsInit(searchParams: any, host: HTMLDivElement): voi
 
 export function postCardLoadEvent(searchParams: any, host: HTMLDivElement): void {
     let setNumber: number = 1;
-    let searchQuery: string = (document.getElementById("search-query-input") as HTMLInputElement).value;;
+    let searchQuery: string = (document.getElementById("search-query-input") as HTMLInputElement).value;
     const postCardLoader = new Subject();
     window.addEventListener("resetsetnumber", () => {
         setNumber = 1;

@@ -107,4 +107,3 @@ function linkToAdifferentPage(host: HTMLDivElement, text: string, onClick: () =>
     goToText.innerHTML = text;
     goToText.onclick = onClick;
 }
-
