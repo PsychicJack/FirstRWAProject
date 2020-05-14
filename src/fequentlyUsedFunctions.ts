@@ -1,17 +1,4 @@
-// fully works, its just unneeded
-/*export function createElementWithClass(
-    host: HTMLDivElement | HTMLFormElement | HTMLElement,
-    className: string = "",
-    elementType: string = "div"
-): HTMLDivElement | HTMLElement {
-    let element: HTMLElement;
-    if (host != undefined)
-        element = host.appendChild(document.createElement(elementType));
-    else element = document.createElement(elementType);
-    element.className = className;
-    if (elementType == "div") return element as HTMLDivElement;
-    else return element;
-}*/
+import { COLORS_ARRAY } from "./services/config";
 
 export function createDivWithClass(host: HTMLElement, className: string = ""): HTMLDivElement {
     const div: HTMLDivElement = host.appendChild(document.createElement("div"));
@@ -20,6 +7,5 @@ export function createDivWithClass(host: HTMLElement, className: string = ""): H
 }
 
 export function notSoRandomRandomColorGenerator(): string {
-    return "#" + (0x1000000 + Math.random() * 0xffffff).toString(16).substr(1, 6);
+    return COLORS_ARRAY[Math.floor(Math.random() * COLORS_ARRAY.length)];
 }
-
