@@ -76,7 +76,8 @@ function users(searchQuery: string): any {
 
 function autocompleteItemOnClick(ev: Event): void {
     const searchBar = document.getElementById("search-bar") as HTMLInputElement;
-    searchBar.value = ((ev.target as HTMLDivElement).querySelector("span") as HTMLSpanElement).innerHTML;
+    const query: string = ((ev.currentTarget as HTMLDivElement).querySelector("span") as HTMLSpanElement).innerHTML;
+    searchBar.value = query.slice(0, query.indexOf("<br>") >= 0 ? query.indexOf("<br>") : query.length);
     searchBar.dispatchEvent(new Event("input"));
 }
 
