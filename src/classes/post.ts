@@ -72,17 +72,7 @@ export class Post {
         const search: string = searchQuery.slice(searchQuery.indexOf(":") + 2);
 
         if (search == "") {
-            return new Promise((resovle, reject) => {
-                return resovle(
-                    fetch(URL_POSTS)
-                        .then((result) => result.json())
-                        .then((data) => {
-                            return (JSON.parse(JSON.stringify(data)) as any[])
-                                .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards)
-                                .map((el) => new Post(el.id, el.title, el.text, el.authorId));
-                        })
-                );
-            });
+            return Post.searchResultsForNon(setNumber, numberOfCards);
         } else {
             if (type == "Title") {
                 return Post.serachResultsForTitle(setNumber, search, numberOfCards);
@@ -94,6 +84,23 @@ export class Post {
                 return Post.serachResultsForAll(setNumber, search, numberOfCards);
             }
         }
+    }
+
+    private static searchResultsForNon(
+        setNumber: number,
+        numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD
+    ): Promise<Post[]> {
+        return new Promise((resovle, reject) => {
+            return resovle(
+                fetch(URL_POSTS)
+                    .then((result) => result.json())
+                    .then((data) => {
+                        return (JSON.parse(JSON.stringify(data)) as any[])
+                            .slice((setNumber - 1) * numberOfCards, (setNumber - 1) * numberOfCards + numberOfCards)
+                            .map((el) => new Post(el.id, el.title, el.text, el.authorId));
+                    })
+            );
+        });
     }
 
     private static serachResultsForAll(
