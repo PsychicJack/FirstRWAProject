@@ -59,6 +59,15 @@
     justify-content: space-around;
 }
 
+.tag:hover{
+    transform: translateY(1px);
+    cursor: pointer;
+}
+
+.tag:active{
+    transform: translateY(0px);
+}
+
 .search {
     /* height: 100px;*/
     background-color: #2dcaa4;
@@ -105,7 +114,12 @@
     border-radius: 20px 0 0 20px;
     max-width: 80px;
 }
-
+#search-button:hover{
+    cursor: pointer;
+}
+#search-button:active{
+    transform: translateY(1px);
+}
 
 .autocomplete {
     font-size: 16px;
