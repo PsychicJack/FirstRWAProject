@@ -36,6 +36,31 @@ export class Post {
         return post;
     }
 
+    async publish(): Promise<boolean> {
+        if (this.title == "" || this.text == "" || this.author <= 0) return false;
+        return new Promise((resolve) => {
+            return resolve(
+                fetch(`${URL_POSTS}`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        title: this.title,
+                        authorId: this.author,
+                        text: this.text,
+                        tags: this.tags,
+                    }),
+                })
+                    .then(() => {
+                        return true;
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        return false;
+                    })
+            );
+        });
+    }
+
     static getNextCards(setNumber: number, numberOfCards: number = NUMBER_OF_CARDS_PER_LOAD): Promise<any> {
         return new Promise((resovle, reject) => {
             return resovle(
