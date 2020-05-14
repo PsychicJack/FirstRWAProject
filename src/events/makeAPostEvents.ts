@@ -1,4 +1,6 @@
 import { Tag } from "../classes/tag";
+import { Post } from "../classes/post";
+import { URL_PAGE } from "../services/config";
 
 export function initMakeAPostEvents(): void {
     const editor: HTMLDivElement = document.querySelector(".editor") as HTMLDivElement;
@@ -46,5 +48,21 @@ export function addTagClick(ev: Event): void {
         tagDiv.onclick = () => {
             tagDiv.remove();
         };
+    }
+}
+
+export function publishClick(ev: Event): void {
+    if (localStorage.getItem("userId") != null) {
+        new Post(
+            0,
+            (document.querySelector(".title-editor") as HTMLDivElement).innerHTML,
+            (document.querySelector(".editor") as HTMLDivElement).innerHTML,
+            +(localStorage.getItem("userId") as string),
+            Array.from(document.querySelectorAll(".tag input[type=hidden]")).map((el: any) => el.value)
+        )
+            .publish()
+            .then((ok) => {
+                if (ok) window.location.href = `${URL_PAGE}index`;
+            });
     }
 }

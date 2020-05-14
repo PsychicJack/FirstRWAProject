@@ -206,6 +206,15 @@
         2,
         4
       ]
+    },
+    {
+      "title": "novi naslov<br>",
+      "authorId": 1,
+      "text": "<div>asd</div><div><b>ffff</b></div><div><b><i>fasd</i></b></div><div><b><i><u>asff</u></i></b><br></div>",
+      "tags": [
+        "5"
+      ],
+      "id": 16
     }
   ],
   "tags": [

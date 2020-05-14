@@ -8,9 +8,9 @@ export class Post {
     title: string;
     text: string;
     author: number;
-    tags: string[];
+    tags: number[];
 
-    constructor(id: number, title: string, text: string, author: number, tags: string[] = []) {
+    constructor(id: number, title: string, text: string, author: number, tags: number[] = []) {
         this.id = id;
         this.title = title;
         this.text = text;

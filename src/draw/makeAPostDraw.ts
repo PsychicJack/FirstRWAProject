@@ -1,10 +1,10 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
 import { Tag } from "../classes/tag";
-import { addTagClick } from "../events/makeAPostEvents";
+import { addTagClick, publishClick } from "../events/makeAPostEvents";
 
 export function makeAPostDraw(host: HTMLDivElement): HTMLDivElement {
     const makeAPost: HTMLDivElement = createDivWithClass(host, "make-a-post");
-    toolBarDraw(makeAPost);
+    (toolBarDraw(makeAPost).querySelector(".publish") as HTMLButtonElement).onclick = publishClick;
     titleEditorDraw(makeAPost);
     editorDraw(makeAPost);
     tagsDraw(makeAPost);
