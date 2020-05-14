@@ -44,6 +44,7 @@
     /*background-color: tomato;*/
     height: 600px;
     width: 100%;
+    padding: 5px;
 }
 
 .tag {

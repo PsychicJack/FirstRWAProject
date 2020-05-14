@@ -14,17 +14,17 @@ function toolBarDraw(host: HTMLDivElement): HTMLDivElement {
     [
         {
             id: "bold",
-            innerHTML: "B",
+            innerHTML: "<b>B</b>",
             class: "tool"
         },
         {
             id: "italic",
-            innerHTML: "I",
+            innerHTML: "<i>I</i>",
             class: "tool"
         },
         {
             id: "underline",
-            innerHTML: "U",
+            innerHTML: "<u>U</u>",
             class: "tool"
         },
         {
@@ -42,6 +42,7 @@ function toolBarDraw(host: HTMLDivElement): HTMLDivElement {
 
 function editorDraw(host: HTMLDivElement): HTMLDivElement{
     const editor: HTMLDivElement = createDivWithClass(host, "editor");
+    editor.contentEditable = "true";
     return editor;
 }
 
