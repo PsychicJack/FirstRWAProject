@@ -29,6 +29,10 @@
     align-self: flex-end;
 }
 
+.log-in-button:active{
+    transform: translateY(2px);
+}
+
 .log-in-button:hover{
     cursor: pointer;;
 }
