@@ -1,5 +1,6 @@
 import { createDivWithClass } from "../fequentlyUsedFunctions";
 import { Tag } from "../classes/tag";
+import { addTagClick } from "../events/makeAPostEvents";
 
 export function makeAPostDraw(host: HTMLDivElement): HTMLDivElement {
     const makeAPost: HTMLDivElement = createDivWithClass(host, "make-a-post");
@@ -57,6 +58,7 @@ function editorDraw(host: HTMLDivElement): HTMLDivElement {
 function tagsDraw(host: HTMLDivElement): HTMLDivElement {
     const tagsDiv: HTMLDivElement = createDivWithClass(host, "tags-div");
     const selectTag: HTMLSelectElement = tagsDiv.appendChild(document.createElement("select"));
+    selectTag.className = "select-tag";
     Tag.getStreamOfTags().subscribe((tag: Tag) => {
         const option = selectTag.appendChild(document.createElement("option"));
         option.innerHTML = tag.name;
@@ -67,12 +69,6 @@ function tagsDraw(host: HTMLDivElement): HTMLDivElement {
     const button: HTMLButtonElement = tagsDiv.appendChild(document.createElement("button"));
     button.className = "add-button";
     button.innerHTML = "Add";
-    button.onclick = () => {
-        new Tag(
-            +selectTag.value,
-            selectTag.selectedOptions[0].innerHTML,
-            selectTag.selectedOptions[0].getAttribute("colorholder") as string
-        ).draw(tagsDiv);
-    };
+    button.onclick = addTagClick;
     return tagsDiv;
 }

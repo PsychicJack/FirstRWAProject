@@ -1,3 +1,5 @@
+import { Tag } from "../classes/tag";
+
 export function initMakeAPostEvents(): void {
     const editor: HTMLDivElement = document.querySelector(".editor") as HTMLDivElement;
     editor.focus();
@@ -27,3 +29,22 @@ function initUnderLineClick(editor: HTMLDivElement) {
     };
 }
 
+export function addTagClick(ev: Event): void {
+    const tagsDiv: HTMLDivElement = document.querySelector(".tags-div") as HTMLDivElement;
+    const selectTag: HTMLSelectElement = document.querySelector(".select-tag") as HTMLSelectElement;
+    const tag: Tag = new Tag(
+        +selectTag.value,
+        selectTag.selectedOptions[0].innerHTML,
+        selectTag.selectedOptions[0].getAttribute("colorholder") as string
+    );
+    if (
+        Array.from(tagsDiv.querySelectorAll("input[type=hidden]")).find(
+            (input: any) => input.value == selectTag.value
+        ) == undefined
+    ) {
+        const tagDiv: HTMLDivElement = tag.draw(tagsDiv);
+        tagDiv.onclick = () => {
+            tagDiv.remove();
+        };
+    }
+}
