@@ -15,9 +15,15 @@ export function initSearchEvents() {
         (document.getElementById("search-by") as HTMLSelectElement).dispatchEvent(new Event("change"));
         autocomplete.innerHTML = "";
         subscription.unsubscribe();
-        subscription = sub.subscribe((item) => {
-            const autocompleteItem: HTMLDivElement = drawAutocompleteItem(autocomplete, item);
-            autocompleteItem.onclick = autocompleteItemOnClick;
+        subscription = sub.subscribe((item: any) => {
+            if (
+                Array.from(document.getElementsByClassName("autocomplete-item"))
+                    .map((el) => el.innerHTML)
+                    .indexOf(`${item.type}: <span>${item.text}</span>`) == -1
+            ) {
+                const autocompleteItem: HTMLDivElement = drawAutocompleteItem(autocomplete, item);
+                autocompleteItem.onclick = autocompleteItemOnClick;
+            }
         });
     };
     (document.getElementById("search-button") as HTMLButtonElement).onclick = serachButtonClick;
