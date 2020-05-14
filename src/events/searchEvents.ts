@@ -27,6 +27,12 @@ export function initSearchEvents() {
         });
     };
     (document.getElementById("search-button") as HTMLButtonElement).onclick = serachButtonClick;
+    searchBar.addEventListener("keydown", (event) => {
+        if (event.keyCode == 13) {
+            event.preventDefault();
+            serachButtonClick(event);
+          }
+    })
 }
 
 export function autocompleteEvent() {
